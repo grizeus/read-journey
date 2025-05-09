@@ -7,9 +7,16 @@
 }
 
 @theme {
+  --color-midnight-black: #141414;
+  --color-charcoal-black: #1f1f1f;
+  --color-ivory: #f9f9f9;
+  --color-tarnished: #686868;
+  --color-royal: #4f92f7;
 }
 
 :root {
+  background-color: var(--color-midnight-black);
+  color: var(--color-ivory);
   font-family: Gilroy, sans-serif;
   font-weight: 500;
 
@@ -40,19 +47,6 @@
 }
 
 /* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
 body {
   line-height: 1;
 }
