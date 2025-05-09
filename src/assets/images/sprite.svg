@@ -1,6 +1,6 @@
 <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
-    <symbol id="icon-x-close" viewBox="0 0 32 32">
+    <symbol id="icon-close" viewBox="0 0 32 32">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.667" d="M24 8 8 24M8 8l16 16"/>
     </symbol>
     <symbol id="icon-dropdown" fill="none" viewBox="0 0 16 8">
@@ -16,8 +16,8 @@
     <symbol id="icon-book" viewBox="0 0 32 32">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M29.333 8.267c0-1.493 0-2.24-.291-2.811a2.666 2.666 0 0 0-1.165-1.165C27.306 4 26.56 4 25.066 4h-.533c-2.987 0-4.48 0-5.621.581a5.331 5.331 0 0 0-2.331 2.331C16 8.053 16 9.546 16 12.533V28l.133-.2c.926-1.389 1.389-2.084 2.001-2.587a5.345 5.345 0 0 1 1.837-.983c.758-.23 1.593-.23 3.262-.23h1.833c1.494 0 2.24 0 2.811-.291.502-.256.91-.664 1.165-1.165.291-.57.291-1.317.291-2.811V8.266zM2.667 8.267c0-1.493 0-2.24.291-2.811.256-.502.664-.91 1.165-1.165C4.693 4 5.44 4 6.934 4h.533c2.987 0 4.48 0 5.621.581a5.331 5.331 0 0 1 2.331 2.331C16 8.053 16 9.546 16 12.533V28l-.133-.2c-.926-1.389-1.389-2.084-2.001-2.587a5.345 5.345 0 0 0-1.837-.983C11.271 24 10.436 24 8.767 24H6.934c-1.493 0-2.24 0-2.811-.291a2.666 2.666 0 0 1-1.165-1.165c-.291-.57-.291-1.317-.291-2.811V8.266z"/>
     </symbol>
-    <symbol id="icon-menu" viewBox="0 0 47 32">
-      <path stroke-linecap="round" stroke-width="3.2" d="M8.742 5.188h36.591M8.742 24.582h36.591M19.965 14.885h25.368"/>
+    <symbol id="icon-menu" viewBox="0 0 28 28">
+      <path d="M3.5 14H24.5M3.5 7H24.5M10.5 21H24.5" stroke="#F9F9F9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
     </symbol>
     <symbol id="icon-arrow" viewBox="0 0 28 32">
       <path fill="#fbfbfb" d="M25.236 3.149a1.882 1.882 0 0 0-2.126-1.602L6.334 3.905a1.883 1.883 0 0 0 .524 3.728L21.77 5.537l2.096 14.912a1.883 1.883 0 0 0 3.728-.524L25.236 3.149zM4.484 31.604l20.391-27.06-3.007-2.266-20.391 27.06 3.007 2.266z" style="fill:var(--color1, #fbfbfb)"/>

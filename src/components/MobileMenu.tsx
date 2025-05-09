@@ -10,21 +10,23 @@ interface MobileMenuProps {
 const MobileMenu = ({ isOpen, toggleMenu, handleLogOut }: MobileMenuProps) => {
   return (
     <div
+      onClick={toggleMenu}
       className={clsx(
-        "bg-overlay fixed top-0 right-0 z-40 h-screen w-screen transition-all duration-350 md:hidden",
+        "bg-midnight-black/60 fixed top-0 right-0 z-10 h-screen w-screen transition-all duration-350 md:hidden",
         isOpen ? "opacity-100" : "invisible opacity-0"
       )}>
       <div
+        onClick={(e) => e.stopPropagation()}
         className={clsx(
-          "bg-dark-grey fixed top-0 right-0 z-50 flex h-screen w-1/2 flex-col items-center justify-between py-[40px] transition-all duration-350",
+          "bg-charcoal-black fixed top-0 right-0 z-20 flex h-screen w-1/2 flex-col items-center justify-between py-10 transition-all duration-350",
           isOpen ? "translate-x-0" : "translate-x-full"
         )}>
         <button
           type="button"
-          className="absolute top-[34px] right-[40px]"
+          className="absolute top-[34px] right-10"
           onClick={toggleMenu}>
-          <svg className="size-7">
-            <use href={`${sprite}#icon-close-menu`}></use>
+          <svg className="size-7 stroke-current">
+            <use href={`${sprite}#icon-close`}></use>
           </svg>
         </button>
 
@@ -32,7 +34,10 @@ const MobileMenu = ({ isOpen, toggleMenu, handleLogOut }: MobileMenuProps) => {
           <Navbar />
         </div>
 
-        <button type="button" className="" onClick={handleLogOut}>
+        <button
+          type="button"
+          className="border-ivory/20 rounded-4xl border px-7 py-3"
+          onClick={handleLogOut}>
           Log out
         </button>
       </div>
