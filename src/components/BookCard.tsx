@@ -1,6 +1,7 @@
 import { useLocation } from "react-router";
 import Image from "./Image";
 import type { Book } from "./BookList";
+import ellipsis from "../lib/utils/ellipsis";
 
 interface BookCardProps {
   book: Book;
@@ -16,12 +17,12 @@ const BookCard = ({ book, size = "" }: BookCardProps) => {
     console.log(id);
   };
   return (
-    <div className="">
+    <div className="flex flex-col gap-2">
       <Image imgUrl={imageUrl} altText={title} onClick={() => {}} />
       <div className="">
-        <div className="">
-          <p className="">{title}</p>
-          <p className="">{author}</p>
+        <div className="flex flex-col gap-0.5 text-2xs leading-3 tracking-tight">
+          <p className="font-bold">{ellipsis(title, 13)}</p>
+          <p className="text-tarnished">{ellipsis(author, 13)}</p>
         </div>
         {isLibrary && size !== "small" && (
           <button

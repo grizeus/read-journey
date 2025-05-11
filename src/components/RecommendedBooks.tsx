@@ -19,7 +19,7 @@ const books: Book[] = booksData as Book[];
 const RecommendedBooks = () => {
   const isFetching = false;
   return (
-    <div className="bg-ebony rounded-xl p-5 md:w-[313px] md:pr-10">
+    <div className="bg-ebony rounded-xl p-5 md:pr-10">
       <h3 className="mb-5 text-lg leading-none font-bold tracking-tight md:mb-10 md:text-xl">
         Recommended books
       </h3>

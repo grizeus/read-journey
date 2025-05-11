@@ -12,7 +12,7 @@ const RecommededMain = () => {
     setPage(curPage);
   };
   return (
-    <div className="bg-charcoal-black w-full rounded-4xl px-5 py-10">
+    <div className="min-w-84 bg-charcoal-black w-full rounded-4xl px-5 py-10">
       <div className="flex items-center justify-between mb-5.5 md:mb-5">
         <h1 className="text-xl leading-none font-bold tracking-tight md:text-[28px] md:leading-8 md:tracking-wide">
           Recommended

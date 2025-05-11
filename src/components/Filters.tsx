@@ -28,8 +28,8 @@ const Filters = () => {
     reset();
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex-1">
-      <p className="mb-2 ml-3.5 text-[10px] leading-3 tracking-tight md:text-sm md:leading-4.5">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex-1 mb-5">
+      <p className="mb-2 ml-3.5 text-2xs leading-3 tracking-tight md:text-sm md:leading-4.5">
         Filters:
       </p>
       <div className="mb-5 flex flex-col gap-2">

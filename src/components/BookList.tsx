@@ -19,7 +19,7 @@ interface BooksListProps {
 const BooksList = ({ books, size = "", maxElem = 0 }: BooksListProps) => {
   const displayedBooks = maxElem > 0 ? books.slice(0, maxElem) : books;
   return (
-    <ul className={clsx("flex flex-col gap-5")}>
+    <ul className={clsx("flex gap-5")}>
       {displayedBooks.map(book => (
         <li key={book._id}>
           <BookCard book={book} size={size} />
