@@ -3,7 +3,7 @@ import sprite from "../assets/images/sprite.svg";
 
 const RecDescription = () => {
   return (
-    <div className="bg-ebony rounded-xl p-5 md:pr-10">
+    <div className="bg-ebony rounded-xl p-5">
       <h3 className="mb-5 text-lg leading-none font-bold tracking-tight md:mb-10 md:text-xl">
         Start your workout
       </h3>
@@ -13,7 +13,7 @@ const RecDescription = () => {
           <span className="bg-ivory text-charcoal-black flex size-10 shrink-0 items-center justify-center rounded-full text-lg font-bold">
             1
           </span>
-          <p className="text-sm leading-4.5 tracking-tight">
+          <p className="max-w-49 text-sm leading-4.5 tracking-tight">
             Create a personal library:{" "}
             <span className="text-tarnished">
               add the books you intend to read to it.
@@ -25,7 +25,7 @@ const RecDescription = () => {
           <span className="bg-ivory text-charcoal-black flex size-10 shrink-0 items-center justify-center rounded-full text-lg font-bold">
             2
           </span>
-          <p className="text-sm leading-4.5 tracking-tight">
+          <p className="max-w-49 text-sm leading-4.5 tracking-tight">
             Create your first workout:{" "}
             <span className="text-tarnished">
               define a goal, choose a period, start training.

@@ -1,17 +1,8 @@
 import { Link } from "react-router";
 import sprite from "../assets/images/sprite.svg";
 import Loader from "./Loader";
-import BooksList from "./BookList";
+import BooksList, { type Book } from "./BookList";
 import booksData from "../lib/utils/recBooks.json";
-
-interface Book {
-  _id: string;
-  title: string;
-  author: string;
-  imageUrl: string;
-  totalPages: number;
-  recommend: boolean;
-}
 
 // Type assertion for the imported JSON data
 const books: Book[] = booksData as Book[];
