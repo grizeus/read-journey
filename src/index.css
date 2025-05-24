@@ -13,6 +13,7 @@
   --color-ivory: #f9f9f9;
   --color-tarnished: #686868;
   --color-royal: #4f92f7;
+  --text-2xs: 10px;
 }
 
 :root {
@@ -71,12 +72,6 @@ table {
   border-spacing: 0;
 }
 
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
 a {
   text-decoration: none;
   outline: none;
@@ -84,4 +79,13 @@ a {
 
 button {
   cursor: pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
 }

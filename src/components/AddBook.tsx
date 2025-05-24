@@ -1,16 +1,18 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
-import * as Yup from "yup";
 import { useYupValidationResolver } from "../lib/utils/validationResolver";
+import * as Yup from "yup";
 
 interface FormData {
   title: string;
   author: string;
+  pages: number;
 }
 
-const Filters = () => {
+const AddBook = () => {
   const validationSchema = Yup.object({
     title: Yup.string(),
     author: Yup.string(),
+    pages: Yup.number(),
   });
   const resolver = useYupValidationResolver(validationSchema);
 
@@ -23,14 +25,18 @@ const Filters = () => {
     resolver,
   });
 
-  const onSubmit: SubmitHandler<FormData> = async ({ title, author }) => {
-    console.log(title?.trim(), author?.trim());
+  const onSubmit: SubmitHandler<FormData> = async ({
+    title,
+    author,
+    pages,
+  }) => {
+    console.log(title?.trim(), author?.trim(), pages);
     reset();
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex-1 mb-5">
-      <p className="mb-2 ml-3.5 text-2xs leading-3 tracking-tight md:text-sm md:leading-4.5">
-        Filters:
+      <p className="mb-2 ml-3.5 text-[10px] leading-3 tracking-tight md:text-sm md:leading-4.5">
+        Create your library:
       </p>
       <div className="mb-5 flex flex-col gap-2">
         <div className="bg-ebony relative flex w-full items-center gap-2.5 rounded-xl px-4.5 py-4">
@@ -39,8 +45,8 @@ const Filters = () => {
           </label>
           <input
             id="title"
-            {...register("title")}
             placeholder="Enter text"
+            {...register("title")}
             className="text-sm leading-4.5 placeholder:text-sm placeholder:leading-4.5 placeholder:text-current focus:outline-none"
           />
           {errors.title && (
@@ -55,8 +61,8 @@ const Filters = () => {
           </label>
           <input
             id="author"
-            {...register("author")}
             placeholder="Enter text"
+            {...register("author")}
             className="text-sm leading-4.5 placeholder:text-sm placeholder:leading-4.5 placeholder:text-current focus:outline-none"
           />
           {errors.author && (
@@ -65,14 +71,26 @@ const Filters = () => {
             </p>
           )}
         </div>
+        <div className="bg-ebony relative flex w-full items-center gap-2.5 rounded-xl px-4.5 py-4">
+          <label htmlFor="pages" className="text-tarnished text-nowrap">
+            Number of pages:
+          </label>
+          <input
+            id="pages"
+            type="number"
+            placeholder={"0"}
+            {...register("pages")}
+            className="text-sm leading-4.5 placeholder:text-sm placeholder:leading-4.5 placeholder:text-current focus:outline-none"
+          />
+        </div>
       </div>
       <button
         type="submit"
         className="border-ivory/20 rounded-4xl border px-7 py-3">
-        To apply
+        Add book
       </button>
     </form>
   );
 };
 
-export default Filters;
+export default AddBook;
