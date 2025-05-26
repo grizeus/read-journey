@@ -1,6 +1,14 @@
 import clsx from "clsx";
 import BookCard from "./BookCard";
 
+export interface Progress {
+  startReading: string;
+  finishReading: string;
+  startPage: number;
+  finishPage: number;
+  status?: "unread" | "in-progress" | "done" | "all";
+}
+
 export interface Book {
   _id: string;
   title: string;
@@ -8,6 +16,7 @@ export interface Book {
   imageUrl: string;
   totalPages: number;
   recommend: boolean;
+  progress?: Progress[];
 }
 
 interface BooksListProps {

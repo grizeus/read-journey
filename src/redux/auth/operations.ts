@@ -4,12 +4,24 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import type { RootState } from "../store";
 
+interface RegisterCredentials {
+  name: string;
+  email: string;
+  password: string;
+}
+
+interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
 export const register = createAsyncThunk(
   "auth/register",
-  async (credentials, thunkAPI) => {
+  async (credentials: RegisterCredentials, thunkAPI) => {
     try {
       const res = await instance.post("/users/signup", credentials);
       setToken(res.data.token);
+      toast.success("User was successfully registered!");
       return res.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -34,7 +46,7 @@ export const register = createAsyncThunk(
 
 export const logIn = createAsyncThunk(
   "auth/login",
-  async (credentials, thunkAPI) => {
+  async (credentials: LoginCredentials, thunkAPI) => {
     try {
       const res = await instance.post("/users/signin", credentials);
       setToken(res.data.token);
@@ -79,7 +91,7 @@ export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
 export const refreshToken = createAsyncThunk(
   "auth/refresh",
   async (_, thunkAPI) => {
-    const state: RootState = thunkAPI.getState();
+    const state = thunkAPI.getState() as RootState;
     const persistedToken = state.auth.refreshToken;
     if (persistedToken === null) {
       return thunkAPI.rejectWithValue("No refresh token");
@@ -106,7 +118,7 @@ export const refreshToken = createAsyncThunk(
 export const getCurrentUser = createAsyncThunk(
   "auth/current",
   async (_, thunkAPI) => {
-    const state: RootState = thunkAPI.getState();
+    const state = thunkAPI.getState() as RootState;
     const persistedToken = state.auth.token;
     if (persistedToken === null) {
       return thunkAPI.rejectWithValue("Token is not available");

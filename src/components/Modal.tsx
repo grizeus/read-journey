@@ -1,6 +1,6 @@
 import { useEffect, useRef, type ReactNode, type MouseEvent } from "react";
 import { createPortal } from "react-dom";
-import sprite from "../assets/images/sprite.svg";
+import sprite from "../assets/sprite.svg";
 import clsx from "clsx";
 
 interface ModalProps {

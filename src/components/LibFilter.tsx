@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import sprite from "../assets/images/sprite.svg";
+import sprite from "../assets/sprite.svg";
 
 const options = ["Unread", "In progress", "Done", "All books"];
 const LibFilter = () => {

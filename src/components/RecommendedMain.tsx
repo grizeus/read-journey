@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import sprite from "../assets/images/sprite.svg";
+import sprite from "../assets/sprite.svg";
 import recBooks from "../lib/utils/recBooks.json";
-import type { Book } from "./RecommendedBooks";
-import BooksList from "./BookList";
+import BooksList, { type Book } from "./BookList";
 
 const books: Book[] = recBooks as Book[];
 

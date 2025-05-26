@@ -1,5 +1,5 @@
 import { useState } from "react";
-import sprite from "../assets/images/sprite.svg";
+import sprite from "../assets/sprite.svg";
 import MobileMenu from "./MobileMenu";
 
 const UserBar = () => {
