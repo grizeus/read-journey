@@ -7,6 +7,7 @@ import { Link } from "react-router";
 import { useYupValidationResolver } from "../lib/utils/validationResolver";
 import type { AppDispatch } from "../redux/store";
 import sprite from "../assets/sprite.svg";
+import { emailRegex } from "../lib/constants";
 
 interface FormData {
   name: string;
@@ -23,13 +24,13 @@ const SignUpForm = () => {
       .required("Email is required")
       .test(
         "is-valid-email",
-        "Email must match pattern: Your@email.com",
-        value => !value || /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(value)
+        "Email must match pattern: name@domain.ext",
+        value => !value || emailRegex.test(value)
       ),
     password: yup
       .string()
       .required("Password is required")
-      .min(7, "Password must be at least 7 characters long"),
+      .min(8, "Password must be at least 8 characters long"),
   });
 
   const resolver = useYupValidationResolver(validationSchema);
@@ -66,28 +67,16 @@ const SignUpForm = () => {
   const renderIcon = (isValid: boolean, hasError: boolean) => {
     if (isValid) {
       return (
-        <div className="absolute top-1/2 right-3 -translate-y-1/2 transform text-green-500">
-          <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fillRule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </div>
+        <svg className="pointer-events-none absolute top-1/2 right-4 size-4.5 -translate-y-1/2 transform">
+          <use href={`${sprite}#icon-check`} />
+        </svg>
       );
     }
     if (hasError) {
       return (
-        <div className="absolute top-1/2 right-3 -translate-y-1/2 transform text-red-500">
-          <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fillRule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </div>
+        <svg className="pointer-events-none absolute top-1/2 right-4 size-4.5 -translate-y-1/2 transform">
+          <use href={`${sprite}#icon-error`} />
+        </svg>
       );
     }
     return null;
@@ -99,127 +88,97 @@ const SignUpForm = () => {
   const isValidPassword = password?.length >= 7 && !errors.password;
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="mx-auto w-full max-w-md rounded-lg bg-white p-6 shadow-md">
-        <h1 className="mb-8 text-center text-2xl font-bold text-gray-800">
-          Expand your mind, reading{" "}
-          <span className="text-blue-600">a book</span>
-        </h1>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <h1 className="mb-4 text-[32px] leading-none font-bold tracking-wide md:mb-10 md:text-[64px] md:leading-15">
+        Expand your mind, reading{" "}
+        <span className="text-gainsboro/50">a book</span>
+      </h1>
 
-        <div className="relative mb-4">
-          <label
-            className="mb-2 block text-sm font-medium text-gray-700"
-            htmlFor={nameId}>
+      <div className="mb-5 flex flex-col gap-2 md:mb-20.5">
+        <div className="bg-ebony relative flex items-center gap-2.5 rounded-xl px-4.5 py-4">
+          <label className="text-tarnished text-nowrap" htmlFor={nameId}>
             Name:
           </label>
           <input
-            className={`w-full rounded-lg border px-4 py-2 focus:ring-2 focus:outline-none ${
-              errors.name
-                ? "border-red-500 focus:ring-red-200"
-                : isValidName
-                  ? "border-green-500 focus:ring-green-200"
-                  : "border-gray-300 focus:border-blue-500 focus:ring-blue-200"
-            }`}
+            className="text-sm leading-4.5 placeholder:text-sm placeholder:leading-4.5 placeholder:text-current focus:outline-none"
             id={nameId}
             type="text"
-            placeholder="Your name"
+            placeholder="Ilona Ratushniak"
             {...formRegister("name")}
           />
           {renderIcon(isValidName, !!errors.name)}
         </div>
-        {isValidName && (
-          <p className="mb-4 text-sm text-green-600">Name is secure</p>
-        )}
-        {errors.name && (
-          <p className="mb-4 text-sm text-red-500">{errors.name.message}</p>
-        )}
+        {isValidName && <p className="">Name is secure</p>}
+        {errors.name && <p className="">{errors.name.message}</p>}
 
-        <div className="relative mb-4">
-          <label
-            className="mb-2 block text-sm font-medium text-gray-700"
-            htmlFor={emailId}>
+        <div className="bg-ebony relative flex items-center gap-2.5 rounded-xl px-4.5 py-4">
+          <label className="text-tarnished text-nowrap" htmlFor={emailId}>
             Mail:
           </label>
           <input
-            className={`w-full rounded-lg border px-4 py-2 focus:ring-2 focus:outline-none ${
-              errors.email
-                ? "border-red-500 focus:ring-red-200"
-                : isValidEmail
-                  ? "border-green-500 focus:ring-green-200"
-                  : "border-gray-300 focus:border-blue-500 focus:ring-blue-200"
-            }`}
+            className="w-full bg-transparent text-sm leading-4.5 placeholder:text-sm placeholder:leading-4.5 placeholder:text-current focus:outline-none"
             id={emailId}
+            autoComplete="mail"
             type="email"
-            placeholder="Your@email.com"
+            placeholder="example@email.com"
             {...formRegister("email")}
           />
           {renderIcon(isValidEmail, !!errors.email)}
         </div>
         {isValidEmail && (
-          <p className="mb-4 text-sm text-green-600">Mail is secure</p>
+          <p className="text-2xs text-neon pt-1 pl-3.5 leading-3 md:text-xs">
+            Mail is secure
+          </p>
         )}
         {errors.email && (
-          <p className="mb-4 text-sm text-red-500">{errors.email.message}</p>
+          <p className="text-2xs pt-1 pl-3.5 leading-3 text-red-500 md:text-xs">
+            {errors.email.message}
+          </p>
         )}
 
-        <div className="relative mb-6">
-          <label
-            className="mb-2 block text-sm font-medium text-gray-700"
-            htmlFor={pwdId}>
+        <div className="bg-ebony relative flex items-center gap-2.5 rounded-xl px-4.5 py-4">
+          <label className="text-tarnished text-nowrap" htmlFor={pwdId}>
             Password:
           </label>
-          <div className="relative">
-            <input
-              className={`w-full rounded-lg border px-4 py-2 pr-10 focus:ring-2 focus:outline-none ${
-                errors.password
-                  ? "border-red-500 focus:ring-red-200"
-                  : isValidPassword
-                    ? "border-green-500 focus:ring-green-200"
-                    : "border-gray-300 focus:border-blue-500 focus:ring-blue-200"
-              }`}
-              id={pwdId}
-              type={isEyeOff ? "password" : "text"}
-              placeholder="Yourpasswordhere"
-              {...formRegister("password")}
-            />
-            <button
-              type="button"
-              onClick={togglePasswordVisibility}
-              className="absolute inset-y-0 right-0 flex items-center pr-3">
-              <svg className="h-5 w-5 text-gray-500">
-                <use
-                  href={
-                    isEyeOff
-                      ? `${sprite}#icon-eye-off`
-                      : `${sprite}#icon-eye-on`
-                  }></use>
-              </svg>
-            </button>
-            {renderIcon(isValidPassword, !!errors.password)}
-          </div>
+          <input
+            className="w-full text-sm leading-4.5 placeholder:text-sm placeholder:leading-4.5 placeholder:text-current focus:outline-none"
+            id={pwdId}
+            type={isEyeOff ? "password" : "text"}
+            placeholder="Yourpasswordhere"
+            {...formRegister("password")}
+          />
+          <button type="button" onClick={togglePasswordVisibility} className="">
+            <svg className="absolute top-1/2 right-10 size-4.5 -translate-y-1/2 transform cursor-pointer">
+              <use
+                href={`${sprite} ${isEyeOff ? "#icon-eye-off" : "#icon-eye"}`}></use>
+            </svg>
+          </button>
+          {renderIcon(isValidPassword, !!errors.password)}
         </div>
         {isValidPassword && (
-          <p className="mb-4 text-sm text-green-600">Password is secure</p>
+          <p className="text-2xs text-neon pt-1 pl-3.5 leading-3 md:text-xs">
+            Password is secure
+          </p>
         )}
         {errors.password && (
-          <p className="mb-6 text-sm text-red-500">{errors.password.message}</p>
+          <p className="text-2xs pt-1 pl-3.5 leading-3 text-red-500 md:text-xs">
+            {errors.password.message}
+          </p>
         )}
-        <div className="mt-8 flex flex-col items-center space-y-4">
-          <button
-            type="submit"
-            className="w-full rounded-full bg-blue-600 px-4 py-2 font-medium text-white transition duration-200 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none">
-            Registration
-          </button>
-          <Link
-            to="/login"
-            className="text-sm font-medium text-blue-600 transition duration-200 hover:text-blue-800">
-            Already have an account?
-          </Link>
-        </div>
-      </form>
-    </div>
+      </div>
+      <div className="flex gap-3.5 md:gap-5">
+        <button
+          type="submit"
+          className="border-ivory/20 rounded-4xl border px-7 py-3">
+          Registration
+        </button>
+        <Link
+          to="/login"
+          className="text-tarnished focus:text-ivory hover:text-ivory text-xs leading-3.5 !underline transition-colors duration-300 ease-in-out md:text-sm md:leading-4.5">
+          Already have an account?
+        </Link>
+      </div>
+    </form>
   );
 };
 

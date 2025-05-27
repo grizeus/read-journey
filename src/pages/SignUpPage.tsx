@@ -1,20 +1,12 @@
-// import clsx from "clsx";
-
 import SignUpForm from "../components/SignUpForm";
 import DocumentTitle from "../components/DocumentTitle";
-import { useWindowSize } from "../hooks/useWindowSize";
+import Logo from "../components/Logo";
 import heroDesk from "../assets/images/hero-desktop.png";
 import heroDesk2x from "../assets/images/hero-desktop@2x.png";
 import heroMob from "../assets/images/hero-mob.png";
 import heroMob2x from "../assets/images/hero-mob@2x.png";
-import Logo from "../components/Logo";
 
 const SignUpPage = () => {
-  const isMobile = useWindowSize() === "mobile";
-  const isDesktop = useWindowSize() === "desktop";
-
-  const showHero = isMobile || isDesktop;
-
   return (
     <>
       <DocumentTitle>ReadJourney — SignUp</DocumentTitle>
@@ -26,21 +18,23 @@ const SignUpPage = () => {
           <SignUpForm />
         </div>
 
-        {showHero && (
-          <div className="">
-            <picture>
-              <source
-                srcSet={`${heroDesk} 1x, ${heroDesk2x} 2x`}
-                media="(min-width: 1280px)"
-              />
-              <source
-                srcSet={`${heroMob} 1x, ${heroMob2x} 2x`}
-                media="(max-width: 767px)"
-              />
-              <img src={heroDesk} alt="Read journey image" className="" />
-            </picture>
-          </div>
-        )}
+        <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-4xl md:hidden xl:flex">
+          <picture className="h-full w-full object-cover">
+            <source
+              srcSet={`${heroDesk} 1x, ${heroDesk2x} 2x`}
+              media="(min-width: 1280px)"
+            />
+            <source
+              srcSet={`${heroMob} 1x, ${heroMob2x} 2x`}
+              media="(max-width: 767px)"
+            />
+            <img
+              src={heroDesk}
+              alt="Read journey image"
+              className="h-full w-full object-cover"
+            />
+          </picture>
+        </div>
       </div>
     </>
   );
