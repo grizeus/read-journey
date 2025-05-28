@@ -1,4 +1,4 @@
-import SignUpForm from "../components/SignUpForm";
+import SignInForm from "../components/SignInForm";
 import DocumentTitle from "../components/DocumentTitle";
 import Logo from "../components/Logo";
 import heroDesk from "../assets/images/hero-desktop.png";
@@ -6,19 +6,19 @@ import heroDesk2x from "../assets/images/hero-desktop@2x.png";
 import heroMob from "../assets/images/hero-mob.png";
 import heroMob2x from "../assets/images/hero-mob@2x.png";
 
-const SignUpPage = () => {
+const SignInPage = () => {
   return (
     <>
-      <DocumentTitle>ReadJourney — SignUp</DocumentTitle>
+      <DocumentTitle>ReadJourney — SignIn</DocumentTitle>
       <div className="grid grid-cols-1 gap-2.5 p-5 md:p-8 lg:gap-4 xl:grid-cols-2">
         <div className="bg-charcoal-black rounded-4xl p-5 pb-10 md:px-16 md:pt-10 md:pb-53.5 xl:pb-10">
           <nav>
             <Logo />
           </nav>
-          <SignUpForm />
+          <SignInForm />
         </div>
 
-        <div className="flex xl:w-150 h-full w-full items-center justify-center overflow-hidden rounded-4xl md:hidden xl:flex">
+        <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-4xl md:hidden xl:flex xl:w-150">
           <picture className="h-full w-full object-cover">
             <source
               srcSet={`${heroDesk} 1x, ${heroDesk2x} 2x`}
@@ -40,4 +40,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default SignInPage;

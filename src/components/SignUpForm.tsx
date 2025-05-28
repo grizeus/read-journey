@@ -8,6 +8,7 @@ import { useYupValidationResolver } from "../lib/utils/validationResolver";
 import type { AppDispatch } from "../redux/store";
 import sprite from "../assets/sprite.svg";
 import { emailRegex } from "../lib/constants";
+import RenderIcon from "./RenderIcon";
 
 interface FormData {
   name: string;
@@ -25,7 +26,7 @@ const SignUpForm = () => {
       .test(
         "is-valid-email",
         "Email must match pattern: name@domain.ext",
-        value => !value || emailRegex.test(value)
+        value => !value || emailRegex.test(value.toLowerCase())
       ),
     password: yup
       .string()
@@ -58,34 +59,17 @@ const SignUpForm = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const onSubmit: SubmitHandler<FormData> = async data => {
-    await dispatch(register(data));
-    reset();
+    const res = await dispatch(register(data));
+    if (register.fulfilled.match(res)) {
+      reset();
+    }
   };
 
   const togglePasswordVisibility = () => setIsEyeOff(prev => !prev);
 
-  const renderIcon = (isValid: boolean, hasError: boolean) => {
-    if (isValid) {
-      return (
-        <svg className="pointer-events-none absolute top-1/2 right-4 size-4.5 -translate-y-1/2 transform">
-          <use href={`${sprite}#icon-check`} />
-        </svg>
-      );
-    }
-    if (hasError) {
-      return (
-        <svg className="pointer-events-none absolute top-1/2 right-4 size-4.5 -translate-y-1/2 transform">
-          <use href={`${sprite}#icon-error`} />
-        </svg>
-      );
-    }
-    return null;
-  };
-
   const isValidName = name?.trim().length > 0 && !errors.name;
-  const isValidEmail =
-    /^[\w]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(email) && !errors.email;
-  const isValidPassword = password?.length >= 7 && !errors.password;
+  const isValidEmail = emailRegex.test(email) && !errors.email;
+  const isValidPassword = password?.length >= 8 && !errors.password;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -94,7 +78,7 @@ const SignUpForm = () => {
         <span className="text-gainsboro/50">a book</span>
       </h1>
 
-      <div className="mb-5 flex flex-col gap-2 md:w-118 md:mb-20.5">
+      <div className="mb-5 flex flex-col gap-2 md:mb-20.5 md:w-118">
         <div className="bg-ebony relative flex items-center gap-2.5 rounded-xl px-4.5 py-4">
           <label className="text-tarnished text-nowrap" htmlFor={nameId}>
             Name:
@@ -106,7 +90,7 @@ const SignUpForm = () => {
             placeholder="Ilona Ratushniak"
             {...formRegister("name")}
           />
-          {renderIcon(isValidName, !!errors.name)}
+          {RenderIcon(isValidName, !!errors.name)}
         </div>
         {isValidName && <p className="">Name is secure</p>}
         {errors.name && <p className="">{errors.name.message}</p>}
@@ -123,7 +107,7 @@ const SignUpForm = () => {
             placeholder="example@email.com"
             {...formRegister("email")}
           />
-          {renderIcon(isValidEmail, !!errors.email)}
+          {RenderIcon(isValidEmail, !!errors.email)}
         </div>
         {isValidEmail && (
           <p className="text-2xs text-neon pt-1 pl-3.5 leading-3 md:text-xs">
@@ -153,7 +137,7 @@ const SignUpForm = () => {
                 href={`${sprite} ${isEyeOff ? "#icon-eye-off" : "#icon-eye"}`}></use>
             </svg>
           </button>
-          {renderIcon(isValidPassword, !!errors.password)}
+          {RenderIcon(isValidPassword, !!errors.password)}
         </div>
         {isValidPassword && (
           <p className="text-2xs text-neon pt-1 pl-3.5 leading-3 md:text-xs">

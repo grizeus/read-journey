@@ -50,6 +50,7 @@ export const logIn = createAsyncThunk(
     try {
       const res = await instance.post("/users/signin", credentials);
       setToken(res.data.token);
+      toast.success("User was successfully logged in!");
       return res.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {

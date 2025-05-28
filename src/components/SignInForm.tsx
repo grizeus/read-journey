@@ -1,33 +1,37 @@
-import css from './SignInForm.module.css';
-import { useId, useState } from 'react';
-import Button from '../ui/Button/Button';
-import { useDispatch } from 'react-redux';
-import { useForm, useWatch } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { logIn } from '../../redux/auth/operations';
-import clsx from 'clsx';
-import { Link } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import { useId, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useForm, useWatch, type SubmitHandler } from "react-hook-form";
+import { useYupValidationResolver } from "../lib/utils/validationResolver";
+import * as yup from "yup";
+import { logIn } from "../redux/auth/operations";
+import { Link } from "react-router-dom";
+import sprite from "../assets/sprite.svg";
+import { emailRegex } from "../lib/constants";
+import type { AppDispatch } from "../redux/store";
+import RenderIcon from "./RenderIcon";
 
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .trim()
-    .required('Email is required')
-    .test(
-      'is-valid-email',
-      'Email must match pattern: Your@email.com',
-      value =>
-        !value || /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(value.toLowerCase())
-    ),
-  password: yup
-    .string()
-    .required('Password is required')
-    .min(7, 'Password must be at least 7 characters long'),
-});
+interface FormData {
+  email: string;
+  password: string;
+}
 
 export default function SignInForm() {
+  const validationSchema = yup.object().shape({
+    email: yup
+      .string()
+      .trim()
+      .required("Email is required")
+      .test(
+        "is-valid-email",
+        "Email must match pattern: Your@email.com",
+        value => !value || emailRegex.test(value.toLowerCase())
+      ),
+    password: yup
+      .string()
+      .required("Password is required")
+      .min(8, "Password must be at least 8 characters long"),
+  });
+  const resolver = useYupValidationResolver(validationSchema);
   const [isEyeOff, setIsEyeOff] = useState(true);
 
   const {
@@ -36,115 +40,107 @@ export default function SignInForm() {
     control,
     reset,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    mode: 'onChange',
+  } = useForm<FormData>({
+    resolver,
+    mode: "onChange",
   });
 
   const emailId = useId();
   const pwdId = useId();
 
-  const email = useWatch({ control, name: 'email' });
-  const password = useWatch({ control, name: 'password' });
+  const email = useWatch({ control, name: "email" });
+  const password = useWatch({ control, name: "password" });
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const onSubmit = async data => {
-    try {
-      const normalizedData = {
-        ...data,
-        email: data.email.toLowerCase(),
-      };
-      await dispatch(logIn(normalizedData)).unwrap();
-      reset();
-      toast.success('User was successfully logged in!');
-    } catch (error) {
+  const onSubmit: SubmitHandler<FormData> = async data => {
+    const normalizedData = {
+      ...data,
+      email: data.email.toLowerCase(),
+    };
+    const res = await dispatch(logIn(normalizedData));
+    if (logIn.fulfilled.match(res)) {
       reset();
     }
   };
 
   const togglePasswordVisibility = () => setIsEyeOff(prev => !prev);
 
-  const renderIcon = (isValid, hasError) => {
-    if (isValid) {
-      return (
-        <svg className={css.iconValidation}>
-          <use href="/sprite.svg#icon-check" />
-        </svg>
-      );
-    }
-    if (hasError) {
-      return (
-        <svg className={css.iconValidation}>
-          <use href="/sprite.svg#icon-error" />
-        </svg>
-      );
-    }
-    return null;
-  };
-
-  const isValidEmail =
-    /^[\w]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(email) && !errors.email;
-  const isValidPassword = password?.length >= 7 && !errors.password;
+  const isValidEmail = emailRegex.test(email) && !errors.email;
+  const isValidPassword = password?.length >= 8 && !errors.password;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <h1 className={css.signTitle}>
-        Expand your mind, reading{' '}
-        <span className={css.signTitleAccentWord}>a book</span>
+      <h1 className="mt-10 mb-5 text-[32px] leading-none font-bold tracking-wide md:mt-39 md:mb-10 md:w-111 md:text-[64px] md:leading-15 xl:mt-27">
+        Expand your mind, reading{" "}
+        <span className="text-gainsboro/50">a book</span>
       </h1>
 
-      <div className={css.inputWrapper}>
-        <label className={css.formLabel} htmlFor={emailId}>
-          Mail:
-        </label>
-        <input
-          className={clsx(css.inputEmail, {
-            [css.inputValid]: isValidEmail,
-            [css.inputInvalid]: errors.email,
-          })}
-          id={emailId}
-          type="email"
-          placeholder="Your@email.com"
-          {...formRegister('email')}
-        />
-        {renderIcon(isValidEmail, errors.email)}
-      </div>
-      {isValidEmail && <p className={css.successMessage}>Mail is secure</p>}
-      {errors.email && (
-        <p className={css.errorMessage}>{errors.email.message}</p>
-      )}
+      <div className="mb-5 flex flex-col gap-2 md:mb-20.5 md:w-118">
+        <div className="bg-ebony relative flex items-center gap-2.5 rounded-xl px-4.5 py-4">
+          <label className="text-tarnished text-nowrap" htmlFor={emailId}>
+            Mail:
+          </label>
+          <input
+            className="w-full bg-transparent text-sm leading-4.5 placeholder:text-sm placeholder:leading-4.5 placeholder:text-current focus:outline-none"
+            id={emailId}
+            autoComplete="mail"
+            type="email"
+            placeholder="example@email.com"
+            {...formRegister("email")}
+          />
+          {RenderIcon(isValidEmail, !!errors.email)}
+        </div>
+        {isValidEmail && (
+          <p className="text-2xs text-neon pt-1 pl-3.5 leading-3 md:text-xs">
+            Mail is secure
+          </p>
+        )}
+        {errors.email && (
+          <p className="text-2xs pt-1 pl-3.5 leading-3 text-red-500 md:text-xs">
+            {errors.email.message}
+          </p>
+        )}
 
-      <div className={css.inputWrapper}>
-        <label className={css.formLabel} htmlFor={pwdId}>
-          Password:
-        </label>
-        <input
-          className={clsx(css.inputPwd, {
-            [css.inputValid]: isValidPassword,
-            [css.inputInvalid]: errors.password,
-          })}
-          id={pwdId}
-          type={isEyeOff ? 'password' : 'text'}
-          placeholder="Yourpasswordhere"
-          {...formRegister('password')}
-        />
-        <svg className={css.formIcon} onClick={togglePasswordVisibility}>
-          <use href={`/sprite.svg#icon-${isEyeOff ? 'eye-off' : 'eye'}`} />
-        </svg>
-        {renderIcon(isValidPassword, errors.password)}
+        <div className="bg-ebony relative flex items-center gap-2.5 rounded-xl px-4.5 py-4">
+          <label className="text-tarnished text-nowrap" htmlFor={pwdId}>
+            Password:
+          </label>
+          <input
+            className="w-full text-sm leading-4.5 placeholder:text-sm placeholder:leading-4.5 placeholder:text-current focus:outline-none"
+            id={pwdId}
+            type={isEyeOff ? "password" : "text"}
+            placeholder="Yourpasswordhere"
+            {...formRegister("password")}
+          />
+          <button type="button" onClick={togglePasswordVisibility} className="">
+            <svg className="absolute top-1/2 right-10 size-4.5 -translate-y-1/2 transform cursor-pointer">
+              <use
+                href={`${sprite} ${isEyeOff ? "#icon-eye-off" : "#icon-eye"}`}></use>
+            </svg>
+          </button>
+          {RenderIcon(isValidPassword, !!errors.password)}
+        </div>
+        {isValidPassword && (
+          <p className="text-2xs text-neon pt-1 pl-3.5 leading-3 md:text-xs">
+            Password is secure
+          </p>
+        )}
+        {errors.password && (
+          <p className="text-2xs pt-1 pl-3.5 leading-3 text-red-500 md:text-xs">
+            {errors.password.message}
+          </p>
+        )}
       </div>
-      {isValidPassword && (
-        <p className={css.successMessage}>Password is secure</p>
-      )}
-      {errors.password && (
-        <p className={css.errorMessage}>{errors.password.message}</p>
-      )}
-      <div className={css.btnAndLinkWrapper}>
-        <Button type="submit" variant="logIn">
+      <div className="flex items-center gap-3.5 md:gap-5">
+        <button
+          type="submit"
+          className="bg-ivory text-charcoal-black focus:border-ivory/20 hover:border-ivory/20 hover:text-ivory rounded-4xl border border-transparent px-7 py-3 text-sm leading-4.5 font-bold tracking-wide transition-colors duration-300 ease-in-out hover:bg-transparent focus:outline-none md:px-13.5 md:py-4 md:text-xl md:leading-none">
           Log in
-        </Button>
-        <Link to="/register" className={css.linkText}>
+        </button>
+        <Link
+          to="/register"
+          className="text-tarnished focus:text-ivory hover:text-ivory text-xs leading-3.5 !underline transition-colors duration-300 ease-in-out md:text-sm md:leading-4.5">
           Don’t have an account?
         </Link>
       </div>
