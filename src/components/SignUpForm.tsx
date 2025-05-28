@@ -89,12 +89,12 @@ const SignUpForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <h1 className="mb-4 text-[32px] leading-none font-bold tracking-wide md:mb-10 md:text-[64px] md:leading-15">
+      <h1 className="mt-10 mb-5 text-[32px] leading-none font-bold tracking-wide md:mt-39 md:mb-10 md:w-111 md:text-[64px] md:leading-15 xl:mt-27">
         Expand your mind, reading{" "}
         <span className="text-gainsboro/50">a book</span>
       </h1>
 
-      <div className="mb-5 flex flex-col gap-2 md:mb-20.5">
+      <div className="mb-5 flex flex-col gap-2 md:w-118 md:mb-20.5">
         <div className="bg-ebony relative flex items-center gap-2.5 rounded-xl px-4.5 py-4">
           <label className="text-tarnished text-nowrap" htmlFor={nameId}>
             Name:
@@ -166,10 +166,10 @@ const SignUpForm = () => {
           </p>
         )}
       </div>
-      <div className="flex gap-3.5 md:gap-5">
+      <div className="flex items-center gap-3.5 md:gap-5">
         <button
           type="submit"
-          className="border-ivory/20 rounded-4xl border px-7 py-3">
+          className="bg-ivory text-charcoal-black focus:border-ivory/20 hover:border-ivory/20 hover:text-ivory rounded-4xl border border-transparent px-7 py-3 text-sm leading-4.5 font-bold tracking-wide transition-colors duration-300 ease-in-out hover:bg-transparent focus:outline-none md:px-13.5 md:py-4 md:text-xl md:leading-none">
           Registration
         </button>
         <Link

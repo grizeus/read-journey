@@ -18,7 +18,7 @@ const SignUpPage = () => {
           <SignUpForm />
         </div>
 
-        <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-4xl md:hidden xl:flex">
+        <div className="flex xl:w-150 h-full w-full items-center justify-center overflow-hidden rounded-4xl md:hidden xl:flex">
           <picture className="h-full w-full object-cover">
             <source
               srcSet={`${heroDesk} 1x, ${heroDesk2x} 2x`}
