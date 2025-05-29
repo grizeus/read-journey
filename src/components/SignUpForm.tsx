@@ -2,13 +2,14 @@ import { useId, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm, useWatch, type SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
-import { register } from "../redux/auth/operations";
 import { Link } from "react-router";
+
+import { register } from "../redux/auth/operations";
 import { useYupValidationResolver } from "../lib/utils/validationResolver";
 import type { AppDispatch } from "../redux/store";
-import sprite from "../assets/sprite.svg";
 import { emailRegex } from "../lib/constants";
 import RenderIcon from "./RenderIcon";
+import sprite from "../assets/sprite.svg";
 
 interface FormData {
   name: string;
