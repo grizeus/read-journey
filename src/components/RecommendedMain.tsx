@@ -21,6 +21,7 @@ import { selectIsLoading } from "../redux/auth/selectors";
 import Loader from "./Loader";
 import RecommendedItem from "./RecommendedItem";
 import Modal from "./Modal";
+import Info from "./Info";
 
 const RecommededMain = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -153,34 +154,38 @@ const RecommededMain = () => {
         </ul>
       </div>
       {selectedBook !== null && (
-        <Modal onClose={closeModal} variant="book">
+        <Modal onClose={closeModal}>
           {selectedBook && (
-            <div className={css.modalBookContainer}>
-              <div className={css.modalBookImgWrapper}>
+            <div>
+              <div className="mx-auto mb-4 h-53 w-35 overflow-hidden rounded-lg md:h-58 md:w-38">
                 <img
-                  className={css.modalBookImg}
+                  className="h-full w-full"
                   src={selectedBook.imageUrl}
-                  alt={selectedBook.bookTitle}
+                  alt={selectedBook.title}
                 />
               </div>
-              <h3 className={css.modalBookTitle}>{selectedBook.title}</h3>
-              <p className={css.modalBookAuthor}>{selectedBook.author}</p>
-              <p className={css.modalBookPages}>
+              <h3 className="mb-0.5 overflow-hidden text-lg leading-none font-bold overflow-ellipsis whitespace-nowrap md:text-xl">
+                {selectedBook.title}
+              </h3>
+              <p className="text-tarnished mb-1 overflow-hidden text-xs leading-3.5 tracking-tight overflow-ellipsis whitespace-nowrap md:text-sm md:leading-4.5">
+                {selectedBook.author}
+              </p>
+              <p className="text-2xs mb-5 leading-3 md:mb-8">
                 {selectedBook.totalPages} pages
               </p>
-              <Button
+              <button
                 type="button"
-                variant="addToLibrary"
-                onClick={handleAddBook}>
+                onClick={handleAddBook}
+                className="hover:bg-ivory hover:text-tarnished focus:bg-ivory focus:text-tarnished mx-auto px-6 py-3 transition-colors duration-300 ease-in-out hover:border-none focus:border-none focus:outline-none md:px-7 md:py-3.5 md:text-base md:leading-4.5">
                 Add to library
-              </Button>
+              </button>
             </div>
           )}
         </Modal>
       )}
 
       {showSuccessModal && (
-        <Modal onClose={closeSuccessModal} variant="notification">
+        <Modal onClose={closeSuccessModal} >
           <Info />
         </Modal>
       )}
