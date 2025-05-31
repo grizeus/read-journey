@@ -152,7 +152,9 @@ export const getBookById = createAsyncThunk(
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        return thunkAPI.rejectWithValue(error.response?.data.message);
+        const msg = error.response?.data.message;
+        toast.error(`Failed to get book: ${msg}. Please, try again.`);
+        return thunkAPI.rejectWithValue(msg);
       } else if (error instanceof Error) {
         return thunkAPI.rejectWithValue(error.message);
       }

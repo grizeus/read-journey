@@ -1,14 +1,35 @@
+import { useSelector } from "react-redux";
+import { selectOwnBooks } from "../redux/books/selectors";
 import BookCard from "./BookCard";
 import BooksList, { type Book } from "./BookList";
 import LibFilter from "./LibFilter";
-import Modal from "./Modal"
+import Modal from "./Modal";
 import { useState } from "react";
+import { selectIsLoading } from "../redux/auth/selectors";
+import { selectStatus } from "../redux/filters/selectors";
+import type { AppDispatch } from "../redux/store";
+import { useDispatch } from "react-redux";
+import { getBookById } from "../redux/books/operations";
+import { useNavigate } from "react-router";
 
 const LibraryMain = () => {
   const [isBookModalOpen, setIsBookModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [modalData] = useState<Book | null>(null);
-  const ownBooks: Book[] = [];
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+
+  const books = useSelector(selectOwnBooks);
+  const loading = useSelector(selectIsLoading);
+  const status = useSelector(selectStatus);
+
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
+  const handleStartReading = async () => {
+    await dispatch(getBookById(selectedBook!._id!)).unwrap();
+    setSelectedBook(null);
+    navigate(`/reading/${selectedBook!._id!}`);
+  };
+
   return (
     <>
       <div className="bg-charcoal-black w-full min-w-84 rounded-4xl px-5 py-10">
@@ -37,7 +58,7 @@ const LibraryMain = () => {
       </div>
       {isBookModalOpen && (
         <Modal onClose={() => setIsBookModalOpen(false)}>
-          {modalData && <BookCard book={modalData} size="big" />}
+          {selectedBook && <BookCard book={selectedBook} size="big" />}
         </Modal>
       )}
 
