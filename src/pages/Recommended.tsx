@@ -7,7 +7,7 @@ import RecommededMain from "../components/RecommendedMain";
 
 const RecommendedPage = () => {
   return (
-    <div className="w-full flex flex-col xl:flex-row gap-2.5 md:gap-4">
+    <div className="flex w-full flex-col gap-2.5 md:gap-4 xl:flex-row">
       <DocumentTitle>ReadJourney — Recommended</DocumentTitle>
       <Dashboard>
         <Filters />

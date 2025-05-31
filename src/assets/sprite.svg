@@ -15,7 +15,7 @@
       <path fill="#e90516" d="M11.52 9.6h8.96c1.06 0 1.92.86 1.92 1.92v8.96c0 1.06-.86 1.92-1.92 1.92h-8.96a1.92 1.92 0 0 1-1.92-1.92v-8.96c0-1.06.86-1.92 1.92-1.92z" style="fill:var(--color3, #e90516)"/>
     </symbol>
     <symbol id="icon-close" viewBox="0 0 32 32">
-      <path fill="none" stroke="#f9f9f9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.909" d="M24 8 8 24M8 8l16 16" style="stroke:var(--color1, #f9f9f9)"/>
+      <path fill="none" stroke="" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.909" d="M24 8 8 24M8 8l16 16" />
     </symbol>
     <symbol id="icon-chevron-up" viewBox="0 0 32 32">
       <path fill="none" stroke="#f9f9f9" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="m24 20-8-8-8 8" style="stroke:var(--color1, #f9f9f9)"/>

@@ -41,11 +41,11 @@ const Modal = ({ children, onClose, className }: ModalProps) => {
         "bg-midnight-black/60 fixed inset-0 transition-opacity duration-300",
         className
       )}>
-      <div className="bg-charcoal-black border-tarnished/20 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl border p-16">
+      <div className="bg-charcoal-black border-tarnished/20 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl border p-4">
         <button
           type="button"
           onClick={onClose}
-          className="group absolute top-5 right-5 flex size-8 items-center justify-center bg-transparent focus:outline-none">
+          className="group absolute top-4 right-4 flex size-8 items-center justify-center bg-transparent focus:outline-none">
           <svg
             className="stroke-ivory group-hover:stroke-tarnished transition-colors duration-300 ease-in-out"
             width={16}

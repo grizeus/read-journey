@@ -1,22 +1,25 @@
-
 interface ItemProps {
-    img: string;
-    bookTitle: string;
-    author: string;
-    totalPages?: number;
-    id?: string;
+  img: string;
+  bookTitle: string;
+  author: string;
+  totalPages?: number;
+  id?: string;
 }
 
 const RecommendedItem = ({ img, bookTitle, author }: ItemProps) => {
   return (
     <>
-      <div className="rounded-lg overflow-hidden mb-2 cursor-pointer w-34 h-52">
-        <img className="w-full h-full" src={img} alt={bookTitle} />
+      <div className="mb-2 h-52 w-34 cursor-pointer overflow-hidden rounded-lg">
+        <img className="h-full w-full" src={img} alt={bookTitle} />
       </div>
-      <h3 className="text-sm whitespace-nowrap overflow-hidden overflow-ellipsis w-34 mb-0.5 leading-4.5 tracking-tight">{bookTitle}</h3>
-      <span className="text-2xs whitespace-nowrap overflow-hidden overflow-ellipsis w-34 leading-3 text-tarnished tracking-tight">{author}</span>
+      <h3 className="mb-0.5 w-34 overflow-hidden text-sm leading-4.5 tracking-tight overflow-ellipsis whitespace-nowrap">
+        {bookTitle}
+      </h3>
+      <span className="text-2xs text-tarnished w-34 overflow-hidden leading-3 tracking-tight overflow-ellipsis whitespace-nowrap">
+        {author}
+      </span>
     </>
   );
-}
+};
 
 export default RecommendedItem;

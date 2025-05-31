@@ -93,8 +93,16 @@ const SignUpForm = () => {
           />
           {RenderIcon(isValidName, !!errors.name)}
         </div>
-        {isValidName && <p className="">Name is secure</p>}
-        {errors.name && <p className="">{errors.name.message}</p>}
+        {isValidName && (
+          <p className="text-2xs text-neon pt-1 pl-3.5 leading-3 md:text-xs">
+            Name is secure
+          </p>
+        )}
+        {errors.name && (
+          <p className="absolute right-2 bottom-0.5 text-xs text-red-500">
+            {errors.name.message}
+          </p>
+        )}
 
         <div className="bg-ebony relative flex items-center gap-2.5 rounded-xl px-4.5 py-4">
           <label className="text-tarnished text-nowrap" htmlFor={emailId}>

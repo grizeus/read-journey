@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import instance from "../../api/instance";
 import axios from "axios";
 import toast from "react-hot-toast";
+import type { Book } from "../../components/BookList";
 
 interface GetRecommendedBooksParams {
   limit?: number;
@@ -82,13 +83,15 @@ export const addBookById = createAsyncThunk(
 
 export const addBook = createAsyncThunk(
   "books/addBook",
-  async (credentials, thunkAPI) => {
+  async (credentials: Book, thunkAPI) => {
     try {
       const { data } = await instance.post(`/books/add`, credentials);
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        return thunkAPI.rejectWithValue(error.response?.data.message);
+        const msg = error.response?.data.message;
+        toast.error(`Failed to add book: ${msg}. Please, try again.`);
+        return thunkAPI.rejectWithValue(msg);
       } else if (error instanceof Error) {
         return thunkAPI.rejectWithValue(error.message);
       }

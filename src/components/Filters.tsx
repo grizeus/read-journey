@@ -53,7 +53,6 @@ const Filters = () => {
   }, [title, author, reset])
 
   const onSubmit: SubmitHandler<FormData> = async ({ title, author, page }) => {
-    console.log(title?.trim(), author?.trim(), page);
     dispatch(setFilters({ title, author }));
     dispatch(getRecommendedBooks({ title, author, page }));
   };
@@ -62,7 +61,7 @@ const Filters = () => {
       <h3 className="mb-2 ml-3.5 text-2xs leading-3 tracking-tight md:text-sm md:leading-4.5">
         Filters:
       </h3>
-      <div className="mb-5 flex flex-col gap-2">
+      <div className="mb-5 flex flex-col gap-2 ">
         <div className="bg-ebony relative flex w-full items-center gap-2.5 rounded-xl px-4.5 py-4">
           <label htmlFor={bookId} className="text-tarnished text-nowrap">
             Book title:

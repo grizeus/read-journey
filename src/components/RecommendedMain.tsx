@@ -14,7 +14,7 @@ import {
   selectAuthorFilter,
   selectTitleFilter,
 } from "../redux/filters/selectors";
-import { addBookById, getRecommendedBooks } from "../redux/books/operations";
+import { addBookById, getAllBooks, getRecommendedBooks } from "../redux/books/operations";
 import toast from "react-hot-toast";
 import { goToNextPage, goToPrevPage } from "../redux/books/slice";
 import { selectIsLoading } from "../redux/auth/selectors";
@@ -74,6 +74,7 @@ const RecommededMain = () => {
         title: titleFilter,
       })
     );
+    dispatch(getAllBooks());
   }, [dispatch, maxElem, curPage, authorFilter, titleFilter]);
 
   const handleAddBook = async () => {
@@ -81,7 +82,7 @@ const RecommededMain = () => {
       item => item.title === selectedBook?.title
     );
     if (ownBooks.length === 0 || !existingBook) {
-      const res = await dispatch(addBookById(selectedBook._id));
+      const res = await dispatch(addBookById(selectedBook!._id!));
       if (res.type.endsWith("/fulfilled")) {
         setShowSuccessModal(true);
       }
@@ -117,7 +118,7 @@ const RecommededMain = () => {
                 type="button"
                 disabled={curPage === 1}
                 onClick={handlePrevPage}
-                className={curPage === 1 ? "fill-tarnished" : "fill-ivory"}>
+                className={`${curPage === 1 ? "fill-tarnished" : "fill-ivory"} hover:fill-tarnished transition-colors duration-300 ease-in-out`}>
                 <svg className="size-5">
                   <use href={`${sprite}#icon-chevron-left`}></use>
                 </svg>
@@ -128,9 +129,7 @@ const RecommededMain = () => {
                 type="button"
                 disabled={curPage === totalPages}
                 onClick={handleNextPage}
-                className={
-                  curPage === totalPages ? "fill-tarnished" : "fill-ivory"
-                }>
+                className={`${curPage === totalPages ? "fill-tarnished" : "fill-ivory"} hover:fill-tarnished transition-colors duration-300 ease-in-out`}>
                 <svg className="size-5">
                   <use href={`${sprite}#icon-chevron-right`}></use>
                 </svg>
@@ -144,7 +143,7 @@ const RecommededMain = () => {
             <li key={book._id} onClick={() => openModal(book)}>
               <RecommendedItem
                 bookTitle={book.title}
-                img={book.imageUrl}
+                img={book!.imageUrl!}
                 author={book.author}
                 totalPages={book.totalPages}
                 id={book._id}
@@ -156,15 +155,15 @@ const RecommededMain = () => {
       {selectedBook !== null && (
         <Modal onClose={closeModal}>
           {selectedBook && (
-            <div>
-              <div className="mx-auto mb-4 h-53 w-35 overflow-hidden rounded-lg md:h-58 md:w-38">
+            <div className="flex flex-col items-center">
+              <div className="mx-20 mt-6 mb-4 h-53 w-35 overflow-hidden rounded-lg md:mx-37 md:mt-8.5 md:h-58 md:w-38">
                 <img
                   className="h-full w-full"
                   src={selectedBook.imageUrl}
                   alt={selectedBook.title}
                 />
               </div>
-              <h3 className="mb-0.5 overflow-hidden text-lg leading-none font-bold overflow-ellipsis whitespace-nowrap md:text-xl">
+              <h3 className="mb-0.5 w-76 overflow-hidden text-center text-lg leading-none font-bold overflow-ellipsis whitespace-nowrap md:w-117 md:text-xl">
                 {selectedBook.title}
               </h3>
               <p className="text-tarnished mb-1 overflow-hidden text-xs leading-3.5 tracking-tight overflow-ellipsis whitespace-nowrap md:text-sm md:leading-4.5">
@@ -176,7 +175,7 @@ const RecommededMain = () => {
               <button
                 type="button"
                 onClick={handleAddBook}
-                className="hover:bg-ivory hover:text-tarnished focus:bg-ivory focus:text-tarnished mx-auto px-6 py-3 transition-colors duration-300 ease-in-out hover:border-none focus:border-none focus:outline-none md:px-7 md:py-3.5 md:text-base md:leading-4.5">
+                className="hover:bg-ivory border-ivory/20 hover:text-tarnished focus:bg-ivory focus:text-tarnished mx-auto mb-6 rounded-4xl border px-6 py-3 transition-colors duration-300 ease-in-out hover:border-none focus:border-none focus:outline-none md:mb-8.5 md:px-7 md:py-3.5 md:text-base md:leading-4.5">
                 Add to library
               </button>
             </div>
@@ -185,7 +184,7 @@ const RecommededMain = () => {
       )}
 
       {showSuccessModal && (
-        <Modal onClose={closeSuccessModal} >
+        <Modal onClose={closeSuccessModal}>
           <Info />
         </Modal>
       )}
@@ -195,117 +194,3 @@ const RecommededMain = () => {
 
 export default RecommededMain;
 
-// @media screen and (min-width: 768px) {
-//   .recommendedListContainer {
-//     padding-left: 40px;
-//     padding-right: 40px;
-//   }
-// }
-
-// @media screen and (min-width: 1280px) {
-//   .recommendedListContainer {
-//     padding-bottom: 28px;
-//     height: 100%;
-//   }
-// }
-
-// .recommendedListTitle {
-//   font-size: 20px;
-//   line-height: 1;
-//   margin-bottom: 34px;
-// }
-
-// @media screen and (min-width: 768px) {
-//   .recommendedListTitle {
-//     font-size: 28px;
-//     line-height: 1.14;
-//     letter-spacing: 0.02em;
-//   }
-// }
-
-// .booksList {
-//   display: flex;
-//   gap: 21px;
-//   justify-content: flex-start;
-//   align-items: center;
-//   flex-wrap: wrap;
-// }
-
-// @media screen and (min-width: 768px) {
-//   .booksList {
-//     flex-wrap: wrap;
-//     row-gap: 27px;
-//     column-gap: 25px;
-//   }
-// }
-
-// @media screen and (min-width: 1280px) {
-//   .booksList {
-//     column-gap: 20px;
-//   }
-// }
-
-// .modalBookImgWrapper {
-//   border-radius: 8px;
-//   overflow: hidden;
-//   width: 140px;
-//   height: 213px;
-//   margin-bottom: 16px;
-//   margin-left: auto;
-//   margin-right: auto;
-// }
-
-// .modalBookImg {
-//   width: 140px;
-//   height: 213px;
-// }
-
-// .modalBookTitle {
-//   text-align: center;
-//   font-weight: 700;
-//   font-size: 18px;
-//   line-height: 1;
-//   margin-bottom: 2px;
-//   white-space: nowrap;
-//   overflow: hidden;
-//   text-overflow: ellipsis;
-// }
-
-// .modalBookAuthor {
-//   text-align: center;
-//   font-size: 12px;
-//   line-height: 1.17;
-//   margin-bottom: 4px;
-//   color: var(--primary-color-gray);
-//   white-space: nowrap;
-//   overflow: hidden;
-//   text-overflow: ellipsis;
-// }
-
-// .modalBookPages {
-//   text-align: center;
-//   font-size: 10px;
-//   line-height: 1.2;
-//   margin-bottom: 20px;
-// }
-
-// @media screen and (min-width: 768px) {
-//   .modalBookImgWrapper,
-//   .modalBookImg {
-//     width: 153px;
-//     height: 233px;
-//   }
-
-//   .modalBookTitle {
-//     font-size: 20px;
-//   }
-
-//   .modalBookAuthor {
-//     font-size: 14px;
-//     line-height: 1.29;
-//   }
-
-//   .modalBookPages {
-//     margin-bottom: 32px;
-//   }
-// }

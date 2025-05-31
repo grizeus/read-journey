@@ -1,31 +1,42 @@
 import { Link } from "react-router";
 import sprite from "../assets/sprite.svg";
 import Loader from "./Loader";
-import BooksList, { type Book } from "./BookList";
-import booksData from "../lib/utils/recBooks.json";
-
-// Type assertion for the imported JSON data
-const books: Book[] = booksData as Book[];
+import { getRandomBooks } from "../lib/utils";
+import { useSelector } from "react-redux";
+import { selectAllBooks } from "../redux/books/selectors";
+import { selectIsLoading } from "../redux/auth/selectors";
+import RecommendedBooksItem from "./RecommendedBooksItem";
 
 const RecommendedBooks = () => {
-  const isFetching = false;
+  const books = useSelector(selectAllBooks);
+  const loading = useSelector(selectIsLoading);
+
+  const recommendedBooks = getRandomBooks(books, 3);
   return (
-    <div className="bg-ebony rounded-xl p-5 md:pr-10">
+    <div className="bg-ebony rounded-xl p-5 md:w-78 md:pr-10">
       <h3 className="mb-5 text-lg leading-none font-bold tracking-tight md:mb-10 md:text-xl">
         Recommended books
       </h3>
 
-      {isFetching ? (
+      {loading ? (
         <Loader className="h-40" />
       ) : (
         <>
-          <div className="mb-5 flex flex-col gap-5">
-            {books && books.length > 0 ? (
-              <BooksList books={books} size="small" maxElem={3} />
+          <ul className="mb-4 flex gap-5 md:mb-5">
+            {recommendedBooks && recommendedBooks.length > 0 ? (
+              recommendedBooks.map(book => (
+                <li key={book._id}>
+                  <RecommendedBooksItem
+                    img={book!.imageUrl!}
+                    bookTitle={book.title}
+                    author={book.author}
+                  />
+                </li>
+              ))
             ) : (
               <p className="text-tarnished">Books not found</p>
             )}
-          </div>
+          </ul>
 
           <Link className="flex items-center justify-between" to="/">
             <span className="text-tarnished text-sm leading-4.5 tracking-tight underline">
