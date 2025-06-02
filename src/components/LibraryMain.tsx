@@ -13,8 +13,8 @@ import booksPile from "../assets/images/books-pile.png";
 import booksPile2x from "../assets/images/books-pile@2x.png";
 import booksPileMob from "../assets/images/books-pile-mob.png";
 import booksPileMob2x from "../assets/images/books-pile-mob@2x.png";
+import defaultBook from "../assets/images/book-cover.png";
 import Loader from "./Loader";
-import RecommendedItem from "./RecommendedItem";
 import sprite from "../assets/sprite.svg";
 
 const LibraryMain = () => {
@@ -35,7 +35,10 @@ const LibraryMain = () => {
     navigate(`/reading/${selectedBook._id}`);
   };
 
-  const handleDeleteBook = (e: React.MouseEvent, id: string) => {
+  const handleDeleteBook = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: string
+  ) => {
     e.stopPropagation();
     dispatch(deleteOwnBook(id));
   };
@@ -84,20 +87,30 @@ const LibraryMain = () => {
         <ul className="flex flex-wrap items-center gap-5 md:gap-6 xl:gap-x-5">
           {books.map(book => (
             <li key={book._id} onClick={() => setSelectedBook(book)}>
-              <RecommendedItem
-                bookTitle={book.title}
-                img={book!.imageUrl!}
-                author={book.author}
-                totalPages={book.totalPages}
-                id={book._id}
-              />
-              <button
-                type="button"
-                onClick={(e) => handleDeleteBook(e, book._id!)}>
-                <svg width={28} height={28}>
-                  <use href={`${sprite}#icon-trash-block`}></use>
-                </svg>
-              </button>
+              <div className="mb-2 h-52 w-34 cursor-pointer overflow-hidden rounded-lg">
+                <img
+                  className="h-full w-full"
+                  src={book.imageUrl || defaultBook}
+                  alt={book.title}
+                />
+              </div>
+              <div className="flex w-34 justify-between">
+                <div>
+                  <h3 className="mb-0.5 w-22.5 overflow-hidden text-sm leading-4.5 tracking-tight overflow-ellipsis whitespace-nowrap">
+                    {book.title}
+                  </h3>
+                  <span className="text-2xs text-tarnished w-22.5 overflow-hidden leading-3 tracking-tight overflow-ellipsis whitespace-nowrap">
+                    {book.author}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={e => handleDeleteBook(e, book._id!)}>
+                  <svg width={28} height={28}>
+                    <use href={`${sprite}#icon-trash-block`}></use>
+                  </svg>
+                </button>
+              </div>
             </li>
           ))}
         </ul>
