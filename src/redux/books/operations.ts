@@ -105,6 +105,7 @@ export const addBook = createAsyncThunk(
 export const getOwnBooks = createAsyncThunk(
   "books/getOwnBooks",
   async (credentials: string, thunkAPI) => {
+    console.log(credentials);
     try {
       const url =
         credentials && credentials !== "all"
