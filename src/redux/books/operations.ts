@@ -131,10 +131,13 @@ export const deleteOwnBook = createAsyncThunk(
   async (id: string, thunkAPI) => {
     try {
       const { data } = await instance.delete(`/books/remove/${id}`);
+      toast.success("Book was deleted from your library.");
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        return thunkAPI.rejectWithValue(error.response?.data.message);
+        const msg = error.response?.data.message;
+        toast.error(`Failed to delete book: ${msg}. Please, try again.`);
+        return thunkAPI.rejectWithValue(msg);
       } else if (error instanceof Error) {
         return thunkAPI.rejectWithValue(error.message);
       }
