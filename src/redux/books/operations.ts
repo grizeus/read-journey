@@ -182,7 +182,7 @@ export const startReading = createAsyncThunk(
         const message =
           error?.response?.data?.message ||
           "Something went wrong. Please, try again.";
-
+        toast.error(message);
         if (status === 409) {
           if (message.includes("already read")) {
             return thunkAPI.rejectWithValue(

@@ -2,7 +2,7 @@ import DocumentTitle from "../components/DocumentTitle";
 import Dashboard from "../components/Dashboard";
 import ReadingForm from "../components/ReadingForm";
 import Progress from "../components/Progress";
-import RecommededMain from "../components/RecommendedMain";
+import ReadingMain from "../components/ReadingMain";
 
 const ReadingPage = () => {
   <div className="flex w-full flex-col gap-2.5 md:gap-4 xl:flex-row">
@@ -11,7 +11,7 @@ const ReadingPage = () => {
       <ReadingForm />
       <Progress />
     </Dashboard>
-    <RecommededMain />
+    <ReadingMain />
   </div>;
 };
 
