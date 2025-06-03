@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import sprite from "../assets/images/sprite.svg";
+import sprite from "../assets/sprite.svg";
 
 const RecDescription = () => {
   return (
