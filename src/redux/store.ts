@@ -18,11 +18,14 @@ const filtersPersistConfig = {
 };
 
 const authPersistedReducer = persistReducer(authPersistConfig, authReducer);
-const filtersPersistedReducer = persistReducer(filtersPersistConfig, filtersReducer);
+const filtersPersistedReducer = persistReducer(
+  filtersPersistConfig,
+  filtersReducer
+);
 
 const reducers = combineReducers({
-    auth: authPersistedReducer,
-    books: booksReducer,
+  auth: authPersistedReducer,
+  books: booksReducer,
   filters: filtersPersistedReducer,
 });
 

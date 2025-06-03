@@ -15,7 +15,7 @@ const Info = () => {
   const isMyReadingPage = useShouldRender([/^\/reading\/[^/]+$/]);
 
   return (
-    <div className="mx-auto flex flex-col md:p-8 items-center justify-center gap-5 md:gap-8">
+    <div className="mx-auto flex flex-col items-center justify-center gap-5 md:gap-8 md:p-8">
       {(isRecommendedPage || isMyLibraryPage) && (
         <picture>
           <source

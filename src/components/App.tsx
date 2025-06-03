@@ -29,54 +29,54 @@ const App = () => {
 
   return (
     <>
-    <CustomToaster/>
-    <Suspense fallback={loader}>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Navigate replace to="/login" />} />
-          <Route
-            path="/register"
-            element={
-              <RestrictedRoute
-                component={<SignUpPage />}
-                redirectTo="/recommended"
-              />
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <RestrictedRoute
-                component={<SignInPage />}
-                redirectTo="/recommended"
-              />
-            }
-          />
-          <Route
-            path="/recommended"
-            element={
-              <PrivateRoute
-                component={<RecommendedPage />}
-                redirectTo="/login"
-              />
-            }
-          />
-          <Route
-            path="/library"
-            element={
-              <PrivateRoute component={<LibraryPage />} redirectTo="/login" />
-            }
-          />
-          <Route
-            path="/reading/:bookId"
-            element={
-              <PrivateRoute component={<ReadingPage />} redirectTo="/login" />
-            }
-          />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Route>
-      </Routes>
-    </Suspense>
+      <CustomToaster />
+      <Suspense fallback={loader}>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Navigate replace to="/login" />} />
+            <Route
+              path="/register"
+              element={
+                <RestrictedRoute
+                  component={<SignUpPage />}
+                  redirectTo="/recommended"
+                />
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <RestrictedRoute
+                  component={<SignInPage />}
+                  redirectTo="/recommended"
+                />
+              }
+            />
+            <Route
+              path="/recommended"
+              element={
+                <PrivateRoute
+                  component={<RecommendedPage />}
+                  redirectTo="/login"
+                />
+              }
+            />
+            <Route
+              path="/library"
+              element={
+                <PrivateRoute component={<LibraryPage />} redirectTo="/login" />
+              }
+            />
+            <Route
+              path="/reading/:bookId"
+              element={
+                <PrivateRoute component={<ReadingPage />} redirectTo="/login" />
+              }
+            />
+            <Route path="*" element={<Navigate to="/login" />} />
+          </Route>
+        </Routes>
+      </Suspense>
     </>
   );
 };

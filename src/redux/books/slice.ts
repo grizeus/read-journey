@@ -1,4 +1,8 @@
-import { createSlice, type PayloadAction, type SerializedError } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  type PayloadAction,
+  type SerializedError,
+} from "@reduxjs/toolkit";
 import {
   addBook,
   deleteOwnBook,
@@ -9,18 +13,18 @@ import {
   getRecommendedBooks,
   startReading,
   stopReading,
-} from './operations';
-import type { Book } from '../../components/BookList';
+} from "./operations";
+import type { Book } from "../../components/BookList";
 
 interface BookState {
-    books: Book[];
-    ownBooks: Book[];
-    readingBook: Book[];
-    currentPage: number;
-    totalPages: number;
-    loading: boolean;
-    error: string | null;
-    allBooks: Book[];
+  books: Book[];
+  ownBooks: Book[];
+  readingBook: Book[];
+  currentPage: number;
+  totalPages: number;
+  loading: boolean;
+  error: string | null;
+  allBooks: Book[];
 }
 
 const handlePending = (state: BookState) => {
@@ -30,15 +34,20 @@ const handlePending = (state: BookState) => {
 
 const handleRejected = (
   state: BookState,
-  action: PayloadAction<unknown, string, { arg: unknown; requestId: string }, SerializedError>
+  action: PayloadAction<
+    unknown,
+    string,
+    { arg: unknown; requestId: string },
+    SerializedError
+  >
 ) => {
   state.loading = false;
-  if (typeof action.payload === 'string') {
+  if (typeof action.payload === "string") {
     state.error = action.payload;
   } else if (action.error && action.error.message) {
     state.error = action.error.message;
   } else {
-    state.error = 'An unknown error occurred';
+    state.error = "An unknown error occurred";
   }
 };
 
@@ -54,7 +63,7 @@ const initialState: BookState = {
 };
 
 const booksSlice = createSlice({
-  name: 'books',
+  name: "books",
   initialState,
   reducers: {
     goToNextPage(state) {

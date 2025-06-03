@@ -15,7 +15,7 @@ const navList = [
 const Navbar = ({ outerClass = "" }) => {
   return (
     <nav className={outerClass}>
-      <ul className="flex md:h-6.5 flex-col gap-8 md:flex-row xl:gap-10">
+      <ul className="flex flex-col gap-8 md:h-6.5 md:flex-row xl:gap-10">
         {navList.map(({ name, path }) => (
           <li key={name} className="mb-5">
             <NavLink

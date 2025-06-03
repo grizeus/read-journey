@@ -19,4 +19,3 @@ const RenderIcon = (isValid: boolean, hasError: boolean) => {
 };
 
 export default RenderIcon;
-

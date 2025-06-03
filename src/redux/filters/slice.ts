@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import type { OptionValue } from '../../components/LibFilter';
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import type { OptionValue } from "../../components/LibFilter";
 
 interface FilterState {
   title: string;
@@ -9,13 +9,13 @@ interface FilterState {
 }
 
 const initialState: FilterState = {
-  title: '',
-  author: '',
-  status: 'All books',
+  title: "",
+  author: "",
+  status: "All books",
 };
 
 const filtersSlice = createSlice({
-  name: 'filters',
+  name: "filters",
   initialState,
   reducers: {
     setFilters: (state, action) => {
@@ -23,8 +23,8 @@ const filtersSlice = createSlice({
       state.author = action.payload.author;
     },
     clearFilters: state => {
-      state.title = '';
-      state.author = '';
+      state.title = "";
+      state.author = "";
     },
     setStatusFilter: (state, action: PayloadAction<OptionValue>) => {
       state.status = action.payload;

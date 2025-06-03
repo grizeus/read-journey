@@ -1,4 +1,8 @@
-import { createSlice, type PayloadAction, type SerializedError } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  type PayloadAction,
+  type SerializedError,
+} from "@reduxjs/toolkit";
 import {
   register,
   logIn,
@@ -26,10 +30,25 @@ const handlePending = (state: AuthState) => {
 
 const handleRejected = (
   state: AuthState,
-  action: PayloadAction<unknown, string, {arg: unknown; requestId: string; requestStatus: 'rejected'; aborted: boolean; condition: boolean} & ({rejectedWithValue: true} | ({rejectedWithValue: false} & {})), SerializedError>
+  action: PayloadAction<
+    unknown,
+    string,
+    {
+      arg: unknown;
+      requestId: string;
+      requestStatus: "rejected";
+      aborted: boolean;
+      condition: boolean;
+    } & ({ rejectedWithValue: true } | ({ rejectedWithValue: false } & {})),
+    SerializedError
+  >
 ) => {
   state.loading = false;
-  state.error = action.error?.message || (typeof action.payload === 'string' ? action.payload : "An unknown error occurred");
+  state.error =
+    action.error?.message ||
+    (typeof action.payload === "string"
+      ? action.payload
+      : "An unknown error occurred");
 };
 
 const initialState: AuthState = {
@@ -84,7 +103,10 @@ const authSlice = createSlice({
         state.token = null;
         state.refreshToken = null;
         state.isLoggedIn = false;
-        state.error = typeof action.payload === 'string' ? action.payload : (action.payload as { message?: string })?.message ?? null;
+        state.error =
+          typeof action.payload === "string"
+            ? action.payload
+            : ((action.payload as { message?: string })?.message ?? null);
       })
       .addCase(getCurrentUser.pending, state => {
         const tokenExists = state.token !== null;
@@ -105,7 +127,10 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(getCurrentUser.rejected, (state, action) => {
-        state.error = typeof action.payload === 'string' ? action.payload : (action.payload as { message?: string })?.message ?? null;
+        state.error =
+          typeof action.payload === "string"
+            ? action.payload
+            : ((action.payload as { message?: string })?.message ?? null);
         state.isRefreshing = false;
         state.isLoggedIn = false;
         state.loading = false;
@@ -125,7 +150,10 @@ const authSlice = createSlice({
       .addCase(refreshToken.rejected, (state, action) => {
         state.isRefreshing = false;
         state.loading = false;
-        state.error = typeof action.payload === 'string' ? action.payload : (action.payload as { message?: string })?.message ?? null;
+        state.error =
+          typeof action.payload === "string"
+            ? action.payload
+            : ((action.payload as { message?: string })?.message ?? null);
       });
   },
 });

@@ -9,7 +9,12 @@ interface ImageProps {
   onClick?: () => void;
 }
 
-const Image = ({ imgUrl, size = "small", altText = "", onClick }: ImageProps) => {
+const Image = ({
+  imgUrl,
+  size = "small",
+  altText = "",
+  onClick,
+}: ImageProps) => {
   const handleClick = () => {
     if (onClick) {
       onClick();
@@ -25,7 +30,7 @@ const Image = ({ imgUrl, size = "small", altText = "", onClick }: ImageProps) =>
       <img
         loading="lazy"
         srcSet={imgUrl ?? `${img1x} 1x, ${img2x} 2x`}
-        className="w-full h-full "
+        className="h-full w-full"
         src={imgUrl || img1x}
         alt={`Photo of ${altText}`}
       />

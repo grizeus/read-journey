@@ -14,7 +14,11 @@ import {
   selectAuthorFilter,
   selectTitleFilter,
 } from "../redux/filters/selectors";
-import { addBookById, getAllBooks, getRecommendedBooks } from "../redux/books/operations";
+import {
+  addBookById,
+  getAllBooks,
+  getRecommendedBooks,
+} from "../redux/books/operations";
 import toast from "react-hot-toast";
 import { goToNextPage, goToPrevPage } from "../redux/books/slice";
 import { selectIsLoading } from "../redux/auth/selectors";
@@ -193,4 +197,3 @@ const RecommededMain = () => {
 };
 
 export default RecommededMain;
-

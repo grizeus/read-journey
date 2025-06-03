@@ -5,7 +5,10 @@ import type { AppDispatch } from "../redux/store";
 import { useDispatch } from "react-redux";
 import { useEffect, useId } from "react";
 import { useSelector } from "react-redux";
-import { selectAuthorFilter, selectTitleFilter } from "../redux/filters/selectors";
+import {
+  selectAuthorFilter,
+  selectTitleFilter,
+} from "../redux/filters/selectors";
 import { setFilters } from "../redux/filters/slice";
 import { getRecommendedBooks } from "../redux/books/operations";
 
@@ -41,7 +44,7 @@ const Filters = () => {
       title,
       author,
       page: 1,
-    }
+    },
   });
 
   useEffect(() => {
@@ -49,19 +52,19 @@ const Filters = () => {
       title,
       author,
       page: 1,
-    })
-  }, [title, author, reset])
+    });
+  }, [title, author, reset]);
 
   const onSubmit: SubmitHandler<FormData> = async ({ title, author, page }) => {
     dispatch(setFilters({ title, author }));
     dispatch(getRecommendedBooks({ title, author, page }));
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex-1 mb-5">
-      <h3 className="mb-2 ml-3.5 text-2xs leading-3 tracking-tight md:text-sm md:leading-4.5">
+    <form onSubmit={handleSubmit(onSubmit)} className="mb-5 flex-1">
+      <h3 className="text-2xs mb-2 ml-3.5 leading-3 tracking-tight md:text-sm md:leading-4.5">
         Filters:
       </h3>
-      <div className="mb-5 flex flex-col gap-2 ">
+      <div className="mb-5 flex flex-col gap-2">
         <div className="bg-ebony relative flex w-full items-center gap-2.5 rounded-xl px-4.5 py-4">
           <label htmlFor={bookId} className="text-tarnished text-nowrap">
             Book title:

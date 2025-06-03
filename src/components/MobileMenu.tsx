@@ -16,7 +16,7 @@ const MobileMenu = ({ isOpen, toggleMenu, handleLogOut }: MobileMenuProps) => {
         isOpen ? "opacity-100" : "invisible opacity-0"
       )}>
       <div
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
         className={clsx(
           "bg-charcoal-black fixed top-0 right-0 z-20 flex h-screen w-1/2 flex-col items-center justify-between py-10 transition-all duration-350",
           isOpen ? "translate-x-0" : "translate-x-full"
