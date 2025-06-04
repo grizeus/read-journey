@@ -2,12 +2,14 @@ import clsx from "clsx";
 import BookCard from "./BookCard";
 
 //NOTE: need only interfaces, not component yet
+
+type Status = "unread" | "in-progress" | "done" | "all";
 export interface Progress {
   startReading: string;
   finishReading: string;
   startPage: number;
   finishPage: number;
-  status?: "unread" | "in-progress" | "done" | "all";
+  status?: Status;
 }
 
 export interface Book {
@@ -18,6 +20,7 @@ export interface Book {
   totalPages: number;
   recommend?: boolean;
   progress?: Progress[];
+  status?: Status;
 }
 
 interface BooksListProps {

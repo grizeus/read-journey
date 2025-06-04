@@ -225,7 +225,7 @@ export const stopReading = createAsyncThunk(
 
 export const deleteReading = createAsyncThunk(
   "books/deleteReading",
-  async (credentials: { bookId: string }, thunkAPI) => {
+  async (credentials: { bookId: string; readingId: string }, thunkAPI) => {
     const queryString = new URLSearchParams(credentials).toString();
     try {
       const { data } = await instance.delete(`/books/reading?${queryString}`);

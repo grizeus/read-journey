@@ -1,11 +1,20 @@
 import { useSelector } from "react-redux";
 import css from "./Dairy.module.css";
-import { selectReadingBook } from "../../redux/books/selectors";
-import DairyEntry from "../DairyEntry/DairyEntry";
+import { selectReadingBook } from "../redux/books/selectors";
+import DiaryEntry from "./DiaryEntry";
+import type { Progress } from "./BookList";
 
-export default function Dairy() {
+interface DiaryGroup {
+  [date: string]: {
+    date: string;
+    totalPages: number;
+    entries: Progress[];
+  };
+}
+
+export default function Diary() {
   const book = useSelector(selectReadingBook);
-  const progress = book.progress?.filter(
+  const progress = book?.progress?.filter(
     entry =>
       entry.startReading &&
       entry.finishReading &&
@@ -13,7 +22,7 @@ export default function Dairy() {
       entry.finishPage != null
   );
 
-  const groupedByDate = progress.reduce((acc, entry) => {
+  const groupedByDate = progress?.reduce<DiaryGroup>((acc, entry) => {
     const date = new Date(entry.finishReading).toLocaleDateString("uk-UA");
     const pagesRead = entry.finishPage - entry.startPage + 1;
     if (!acc[date]) {
@@ -26,7 +35,7 @@ export default function Dairy() {
     acc[date].totalPages += pagesRead;
     acc[date].entries.push(entry);
     return acc;
-  }, {});
+  }, {} as DiaryGroup) || {};
 
   const diaryData = Object.values(groupedByDate).sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -54,7 +63,7 @@ export default function Dairy() {
                     new Date(a.finishReading).getTime()
                 )
                 .map(entry => (
-                  <DairyEntry key={entry._id} entry={entry} book={book} />
+                  <DiaryEntry key={entry._id} entry={entry} book={book} />
                 ))}
             </ul>
           </li>

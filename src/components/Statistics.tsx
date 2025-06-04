@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import css from "./Statistics.module.css";
-import { selectReadingBook } from "../../redux/books/selectors";
+import { selectReadingBook } from "../redux/books/selectors";
 import { useEffect, useState } from "react";
 
 export default function Statistics() {

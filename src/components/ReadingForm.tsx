@@ -1,46 +1,58 @@
 import css from "./ReadingForm.module.css";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useYupValidationResolver } from "../lib/utils/validationResolver";
 import { useEffect, useId, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import clsx from "clsx";
-import Info from "../ui/Info/Info";
-import ModalForm from "../ui/ModalForm/ModalForm";
-import Button from "../ui/Button/Button";
-import { selectReadingBook } from "../../redux/books/selectors";
-import { getBookStatus } from "../../utils";
+import Info from "./Info";
+import Modal from "./Modal";
+import Button from "./Button";
+import { selectReadingBook } from "../redux/books/selectors";
+import { getBookStatus } from "../lib/utils";
 import toast from "react-hot-toast";
-import { startReading, stopReading } from "../../redux/books/operations";
-import { useParams } from "react-router-dom";
+import { startReading, stopReading } from "../redux/books/operations";
+import { useParams } from "react-router";
+import type { Book } from "./BookList";
+import type { AppDispatch } from "../redux/store";
+import RenderIcon from "./RenderIcon";
 
-const schema = yup.object().shape({
-  page: yup
-    .number()
-    .typeError("Pages must be a number")
-    .required("Pages are required")
-    .positive("Must be positive")
-    .integer("Must be an integer"),
-});
+interface FormData {
+  page: number;
+}
 
 export default function ReadingForm() {
+  const validationSchema = yup.object().shape({
+    page: yup
+      .number()
+      .typeError("Pages must be a number")
+      .required("Pages are required")
+      .positive("Must be positive")
+      .integer("Must be an integer").transform((value, originalValue) => {
+        if (typeof originalValue === "string" && originalValue.trim() !== "") {
+          return Number(originalValue);
+        }
+        return value;
+      })
+    ,
+  });
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const closeSuccessModal = () => setShowSuccessModal(false);
   const pageId = useId();
-  const { totalPages } = useSelector(selectReadingBook);
+  const { totalPages } = useSelector(selectReadingBook) as Book;
   const { bookId } = useParams();
-
+  const resolver = useYupValidationResolver(validationSchema);
   const {
     register,
     handleSubmit,
     control,
     reset,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
+  } = useForm<FormData>({
+    resolver,
     defaultValues: {
-      page: "",
+      page: 0,
     },
   });
 
@@ -59,7 +71,8 @@ export default function ReadingForm() {
     if (!book) return;
 
     if (book.status === "done") {
-      reset({ page: "This book is read" });
+      // Set to 0 when book is done, we'll handle the display in the UI
+      reset({ page: 0 });
       return;
     }
 
@@ -70,12 +83,13 @@ export default function ReadingForm() {
     });
   }, [book, reset, maxReadPage]);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const onSubmitStart = async ({ page }) => {
+  const onSubmitStart = async (data: FormData) => {
+    const page = data.page;
     const isFirstSession = !book?.progress || book.progress.length === 0;
 
-    if (book.status === "done") {
+    if (book?.status === "done") {
       toast.error(
         "This book is already read. To reread it, please delete it from your library and add it again."
       );
@@ -121,7 +135,8 @@ export default function ReadingForm() {
     }
   };
 
-  const onSubmitStop = async ({ page }) => {
+  const onSubmitStop = async (data: FormData) => {
+    const page = data.page;
     if (+page < maxReadPage + 1) {
       toast.error(
         `You cannot stop reading on page (${page}) earlier than the start read page (${
@@ -152,37 +167,28 @@ export default function ReadingForm() {
     }
   };
 
-  const renderIcon = (isValid, hasError) => {
-    if (isValid) {
-      return (
-        <svg className={css.iconValidation}>
-          <use href="/sprite.svg#icon-check" />
-        </svg>
-      );
-    }
-    if (hasError) {
-      return (
-        <svg className={css.iconValidation}>
-          <use href="/sprite.svg#icon-error" />
-        </svg>
-      );
-    }
-    return null;
-  };
-
   const isValidPage =
-    page !== "" &&
+    page !== null &&
     !isNaN(page) &&
     Number(page) > 0 &&
     Number.isInteger(Number(page)) &&
     !errors.page;
 
   const bookStatus = getBookStatus(book);
-  const isDisabled = book.status === "done";
+  const isDisabled = book?.status === "done";
+
+  if (book?.status === "done") {
+    return (
+      <div className={css.addBookForm}>
+        <h1 className={css.addBookTitle}>Reading Progress</h1>
+        <p>You have finished reading this book!</p>
+      </div>
+    );
+  }
 
   return (
     <>
-      {bookStatus.status === "active" ? (
+      {bookStatus?.status === "active" ? (
         <form className={css.addBookForm} onSubmit={handleSubmit(onSubmitStop)}>
           <h1 className={css.addBookTitle}>Stop page:</h1>
 
@@ -197,10 +203,12 @@ export default function ReadingForm() {
                 [css.inputInvalid]: errors.page,
               })}
               id={pageId}
-              type="text"
+              type="number"
               placeholder="0"
+              min="1"
+              max={totalPages}
             />
-            {renderIcon(isValidPage, errors.page)}
+            {RenderIcon(isValidPage, !!errors.page)}
           </div>
           {isValidPage && <p className={css.successMessage}>Pages are valid</p>}
           {errors.page && (
@@ -229,10 +237,13 @@ export default function ReadingForm() {
                 [css.disabled]: isDisabled,
               })}
               id={pageId}
-              type="text"
+              type="number"
               placeholder="0"
+              min="1"
+              max={totalPages}
+              disabled={isDisabled}
             />
-            {renderIcon(isValidPage, errors.page)}
+            {RenderIcon(isValidPage, !!errors.page)}
           </div>
           {isValidPage && <p className={css.successMessage}>Pages are valid</p>}
           {errors.page && (
@@ -250,12 +261,11 @@ export default function ReadingForm() {
         </form>
       )}
 
-      <ModalForm
-        modalIsOpen={showSuccessModal}
-        closeModal={closeSuccessModal}
-        variant="notification">
-        <Info />
-      </ModalForm>
+      {showSuccessModal && (
+        <Modal onClose={closeSuccessModal}>
+          <Info />
+        </Modal>
+      )}
     </>
   );
 }

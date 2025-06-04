@@ -1,18 +1,17 @@
 import { useSelector } from "react-redux";
-import css from "./Progress.module.css";
 import { selectReadingBook } from "../redux/books/selectors";
 import { getBookStatus } from "../lib/utils";
-import Details from "../Details/Details";
+import Details from "./Details";
 
 export default function Progress() {
   const book = useSelector(selectReadingBook);
   const bookStatus = getBookStatus(book);
 
   return (
-    <div className={css.progressContainer}>
+    <div className="md:w-1/2">
       {bookStatus.status === null || !bookStatus.isBookStarted ? (
         <>
-          <h2 className={css.progressTitle}>Progress</h2>
+          <h2 className="mb-3.5 text-lg leading-none md:text-xl">Progress</h2>
           <>
             <p>
               Here you will see when and how much you read. To record, click on

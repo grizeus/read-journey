@@ -1,12 +1,12 @@
 import { useState } from "react";
-import css from "./Details.module.css";
+import Diary from "./Diary";
+import Statistics from "./Statistics";
 import clsx from "clsx";
-import Diary from "../Dairy/Dairy";
-import Statistics from "../Statistics/Statistics";
-import { useDeviceType } from "../../hooks/useDeviceType";
+
+type BtnType = "diary" | "statistics";
 
 export default function Details() {
-  const [activeBtn, setActiveBtn] = useState("diary");
+  const [activeBtn, setActiveBtn] = useState<BtnType>("diary");
 
   const onStatisticsClick = () => {
     setActiveBtn("statistics");
@@ -16,51 +16,48 @@ export default function Details() {
     setActiveBtn("diary");
   };
 
-  const deviceType = useDeviceType();
 
-  const isDesktop = deviceType === "desktop";
 
   return (
-    <div className={css.detailsContainer}>
-      <div className={css.detailsTitleAndBtnWrapper}>
-        <h2 className={css.detailsTitle}>
+    <div className="flex flex-col gap-6 p-5 md:p-6 lg:gap-8 lg:p-8">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <h2 className="text-2xl font-bold leading-8 text-white md:text-3xl">
           {activeBtn === "diary" ? "Dairy" : "Statistics"}
         </h2>
-        <div className={css.btnWrapper}>
-          <Button
+        <div className="flex gap-2">
+          {/* variant details */}
+          <button
             type="button"
-            variant="details"
             onClick={onDiaryClick}
-            className={css.detailsBtn}>
+            className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-700 p-2 transition-colors hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800">
             <svg
               width={28}
               height={28}
               className={clsx(
-                css.detailsIcon,
-                activeBtn === "diary" ? css.activeIcon : css.inactiveIcon
+                "h-6 w-6 transition-colors",
+                activeBtn === "diary" ? "text-blue-400" : "text-gray-400"
               )}>
               <use href="/sprite.svg?v=2#icon-hourglass"></use>
             </svg>
-          </Button>
-          <Button
+          </button>
+          <button
             type="button"
-            variant="details"
             onClick={onStatisticsClick}
-            className={css.detailsBtn}>
+            className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-700 p-2 transition-colors hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800">
             <svg
               width={28}
               height={28}
               className={clsx(
-                css.detailsIcon,
-                activeBtn === "statistics" ? css.activeIcon : css.inactiveIcon
+                "h-6 w-6 transition-colors",
+                activeBtn === "statistics" ? "text-blue-400" : "text-gray-400"
               )}>
               <use href="/sprite.svg?v=2#icon-pie-chart"></use>
             </svg>
-          </Button>
+          </button>
         </div>
       </div>
-      {isDesktop && activeBtn === "statistics" && (
-        <p className={css.statText}>
+      {activeBtn === "statistics" && (
+        <p className="hidden lg:block text-gray-300">
           Each page, each chapter is a new round of knowledge, a new step
           towards understanding. By rewriting statistics, we create our own
           reading history.
@@ -68,8 +65,8 @@ export default function Details() {
       )}
       <div
         className={clsx(
-          css.dairyAndStatContainer,
-          activeBtn === "diary" ? css.dairyContainer : css.statContainer
+          "rounded-2xl bg-gray-800 p-4 transition-all duration-300 md:p-6",
+          activeBtn === "diary" ? "min-h-[400px]" : "min-h-[300px]"
         )}>
         {activeBtn === "diary" ? <Diary /> : <Statistics />}
       </div>
