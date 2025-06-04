@@ -1,28 +1,13 @@
 import { useCallback } from "react";
-import type { AnySchema, ValidationError } from "yup";
+import type { FieldErrors, ResolverResult } from "react-hook-form";
+import { ValidationError, type AnySchema } from "yup";
 
-interface FormValues {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any;
-}
-
-interface FormErrors {
-  [key: string]: {
-    type: string;
-    message: string;
-  };
-}
-
-interface ResolverResult {
-  values: FormValues;
-  errors: FormErrors;
-}
-
-export const useYupValidationResolver = <T extends FormValues>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const useYupValidationResolver = <T extends Record<string, any>>(
   validationSchema: AnySchema<T>
-): ((data: T) => Promise<ResolverResult>) =>
+): ((data: T) => Promise<ResolverResult<T>>) =>
   useCallback(
-    async (data: T) => {
+    async (data: T): Promise<ResolverResult<T>> => {
       try {
         const values = await validationSchema.validate(data, {
           abortEarly: false,
@@ -30,22 +15,26 @@ export const useYupValidationResolver = <T extends FormValues>(
 
         return {
           values,
-          errors: {},
+          errors: {} as FieldErrors<T>,
         };
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (errors: any) {
+        const fieldErrors: FieldErrors<T> = {};
+
+        if (errors instanceof ValidationError) {
+          errors.inner.forEach(error => {
+            if (error.path) {
+              fieldErrors[error.path as keyof T] = {
+                type: error.type ?? "validation",
+                message: error.message,
+              } as FieldErrors<T>[keyof T];
+            }
+          });
+        }
+
         return {
-          values: {} as FormValues,
-          errors: (errors as ValidationError).inner.reduce(
-            (allErrors, currentError) => ({
-              ...allErrors,
-              [currentError.path!]: {
-                type: currentError.type ?? "validation",
-                message: currentError.message,
-              },
-            }),
-            {}
-          ),
+          values: {} as T,
+          errors: fieldErrors,
         };
       }
     },
