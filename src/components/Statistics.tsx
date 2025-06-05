@@ -71,7 +71,7 @@ export default function Statistics() {
         </svg>
       </div>
       <div className="flex gap-4">
-        <div className="size-3.5 bg-neon-green rounded-sm"></div>
+        <div className="size-3.5 bg-neon rounded-sm"></div>
         <div className="md:gap-2 flex flex-col gap-1">
           <p className="text-sm text-ivory">
             {Math.round(percent * 100).toFixed(2)}%

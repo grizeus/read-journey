@@ -71,7 +71,6 @@ export default function ReadingForm() {
     if (!book) return;
 
     if (book.status === "done") {
-      // Set to 0 when book is done, we'll handle the display in the UI
       reset({ page: 0 });
       return;
     }
@@ -103,7 +102,7 @@ export default function ReadingForm() {
       return;
     }
 
-    if (+page < maxReadPage + 1) {
+    if (page < maxReadPage + 1) {
       toast.error(
         `You cannot start from a page (${page}) earlier than the last read page (${maxReadPage}).`
       );
@@ -119,7 +118,7 @@ export default function ReadingForm() {
       return;
     }
 
-    if (+page > totalPages) {
+    if (page > totalPages) {
       toast.error(
         `Page number cannot exceed the total pages (${totalPages}) of the book.`
       );
@@ -127,17 +126,13 @@ export default function ReadingForm() {
       return;
     }
 
-    try {
-      await dispatch(startReading({ page, id: bookId })).unwrap();
-      reset();
-    } catch (error) {
-      toast.error(`Failed to start reading: ${error}.`);
-    }
+    await dispatch(startReading({ id: bookId!, page }));
+    reset();
   };
 
   const onSubmitStop = async (data: FormData) => {
     const page = data.page;
-    if (+page < maxReadPage + 1) {
+    if (page < maxReadPage + 1) {
       toast.error(
         `You cannot stop reading on page (${page}) earlier than the start read page (${
           maxReadPage + 1
@@ -155,16 +150,13 @@ export default function ReadingForm() {
       return;
     }
 
-    try {
-      await dispatch(stopReading({ page, id: bookId })).unwrap();
+    await dispatch(stopReading({ page, id: bookId! }));
+    reset();
+    if (page === totalPages) {
       reset();
-      if (+page === totalPages) {
-        reset();
-        setShowSuccessModal(true);
-      }
-    } catch (error) {
-      toast.error(`Failed to stop reading: ${error}. Please, try again.`);
+      setShowSuccessModal(true);
     }
+  
   };
 
   const isValidPage =
@@ -188,7 +180,7 @@ export default function ReadingForm() {
 
   return (
     <>
-      {bookStatus?.status === "active" ? (
+      {bookStatus?.status === "in-progress" ? (
         <form className={css.addBookForm} onSubmit={handleSubmit(onSubmitStop)}>
           <h1 className={css.addBookTitle}>Stop page:</h1>
 
@@ -252,10 +244,12 @@ export default function ReadingForm() {
 
           <Button
             type="submit"
-            variant="start"
-            className={clsx(css.startBtn, {
-              [css.disabled]: isDisabled,
-            })}>
+              variant="start"
+              className="font-bold text-sm leading-4.5 tracking-wide text-ivory hover:outline-none focus:outline-none border-ivory/20 bg-transparent rounded-4xl px-5 py-2.5 mt-5 transition-colors duration-300 ease-in-out"
+            // className={clsx(css.startBtn, {
+            //   [css.disabled]: isDisabled,
+            // })}
+            >
             To start
           </Button>
         </form>

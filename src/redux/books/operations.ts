@@ -171,8 +171,7 @@ export const getBookById = createAsyncThunk(
 
 export const startReading = createAsyncThunk(
   "books/startReading",
-  // TODO: check type
-  async (credentials: { bookId: string; startDate: string }, thunkAPI) => {
+  async (credentials: { id: string; page: number }, thunkAPI) => {
     try {
       const { data } = await instance.post("/books/reading/start", credentials);
       return data;
@@ -203,7 +202,7 @@ export const startReading = createAsyncThunk(
 
 export const stopReading = createAsyncThunk(
   "books/stopReading",
-  async (credentials: { bookId: string; endDate: string }, thunkAPI) => {
+  async (credentials: { id: string; page: number }, thunkAPI) => {
     try {
       const { data } = await instance.post(
         "/books/reading/finish",
@@ -212,7 +211,11 @@ export const stopReading = createAsyncThunk(
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        return thunkAPI.rejectWithValue(error.response?.data.message);
+        const msg =
+          error?.response?.data?.message ||
+          "Something went wrong. Please, try again.";
+        toast.error(msg);
+        return thunkAPI.rejectWithValue(msg);
       } else if (error instanceof Error) {
         return thunkAPI.rejectWithValue(error.message);
       }
