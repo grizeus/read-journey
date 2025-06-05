@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import css from "./Statistics.module.css";
-import { selectReadingBook } from "../redux/books/selectors";
 import { useEffect, useState } from "react";
+
+import { selectReadingBook } from "../redux/books/selectors";
 
 export default function Statistics() {
   const book = useSelector(selectReadingBook);
@@ -37,7 +37,7 @@ export default function Statistics() {
     <>
       <div>
         <svg
-          className={css.statChart}
+          className="size-29 md:size-34.5 xl:size-42 rounded-xl"
           viewBox={`0 0 ${radius * 2} ${radius * 2}`}>
           <circle
             stroke="#1f1f1f"
@@ -48,7 +48,7 @@ export default function Statistics() {
             cy={radius}
           />
           <circle
-            className={css.statProgressCircle}
+            className="transition-[stroke-dashoffset] duration-800 ease"
             stroke="#30b94d"
             fill="transparent"
             strokeWidth={strokeWidth}
@@ -65,20 +65,21 @@ export default function Statistics() {
             y="50%"
             dominantBaseline="middle"
             textAnchor="middle"
-            className={css.statTotalPercent}>
+            className="font-bold md:text-xl md:leading-none text-lg leading-5 fill-ivory">
             100%
           </text>
         </svg>
       </div>
-      <div className={css.statInfoContainer}>
-        <div className={css.statProgressMark}></div>
-        <div className={css.statProgressContainer}>
-          <p className={css.statProgressPercent}>
+      <div className="flex gap-4">
+        <div className="size-3.5 bg-neon-green rounded-sm"></div>
+        <div className="md:gap-2 flex flex-col gap-1">
+          <p className="text-sm text-ivory">
             {Math.round(percent * 100).toFixed(2)}%
           </p>
-          <p className={css.statProgressPages}>{pagesRead} pages read</p>
+          <p className="text-2xs leading-3 text-tarnished md:text-xs md:leading-3.5">{pagesRead} pages read</p>
         </div>
       </div>
     </>
   );
 }
+
