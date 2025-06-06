@@ -1781,7 +1781,7 @@ prism-react-renderer@^2.4.1:
   dependencies:
     "@types/prismjs" "^1.26.0"
     clsx "^2.0.0"
-
+    
 prop-types@^15.7.2:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
@@ -2052,6 +2052,7 @@ tailwind-scrollbar@^4.0.2:
   integrity sha512-wAQiIxAPqk0MNTPptVe/xoyWi27y+NRGnTwvn4PQnbvB9kp8QUBiGl/wsfoVBHnQxTmhXJSNt9NHTmcz9EivFA==
   dependencies:
     prism-react-renderer "^2.4.1"
+
 
 tailwindcss@4.1.8, tailwindcss@^4.1.5:
   version "4.1.8"
