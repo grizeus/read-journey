@@ -19,7 +19,7 @@ import type { Book } from "../../components/BookList";
 interface BookState {
   books: Book[];
   ownBooks: Book[];
-  readingBook: Book[];
+  readingBook: Book | null;
   currentPage: number;
   totalPages: number;
   loading: boolean;
@@ -54,7 +54,7 @@ const handleRejected = (
 const initialState: BookState = {
   books: [],
   ownBooks: [],
-  readingBook: [],
+  readingBook: null,
   currentPage: 1,
   totalPages: 0,
   loading: false,

@@ -33,8 +33,8 @@ export const getRandomBooks = (books: Book[], count: number) => {
   return shuffled.slice(0, count);
 };
 
-export const getBookStatus = (book: Book) => {
-  const progress = book.progress;
+export const getBookStatus = (book: Book | null) => {
+  const progress = book?.progress;
   let status;
   let isBookStarted;
   if (progress) {
