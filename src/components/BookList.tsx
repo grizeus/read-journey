@@ -5,6 +5,7 @@ import BookCard from "./BookCard";
 
 type Status = "unread" | "in-progress" | "done" | "all";
 export interface Progress {
+  _id?: string;
   startReading: string;
   finishReading: string;
   startPage: number;

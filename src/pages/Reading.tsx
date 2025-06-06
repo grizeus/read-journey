@@ -5,14 +5,16 @@ import Progress from "../components/Progress";
 import ReadingMain from "../components/ReadingMain";
 
 const ReadingPage = () => {
-  <div className="flex w-full flex-col gap-2.5 md:gap-4 xl:flex-row">
-    <DocumentTitle>ReadJourney — Reading</DocumentTitle>
-    <Dashboard>
-      <ReadingForm />
-      <Progress />
-    </Dashboard>
-    <ReadingMain />
-  </div>;
+  return (
+    <div className="flex w-full flex-col gap-2.5 md:gap-4 xl:flex-row">
+      <DocumentTitle>ReadJourney — Reading</DocumentTitle>
+      <Dashboard>
+        <ReadingForm />
+        <Progress />
+      </Dashboard>
+      <ReadingMain />
+    </div>
+  );
 };
 
 export default ReadingPage;

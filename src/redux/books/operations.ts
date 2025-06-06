@@ -232,9 +232,11 @@ export const deleteReading = createAsyncThunk(
     const queryString = new URLSearchParams(credentials).toString();
     try {
       const { data } = await instance.delete(`/books/reading?${queryString}`);
+      toast.success("Entry was deleted from your dairy.");
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
+        toast.error("Something went wrong. Please try again.");
         return thunkAPI.rejectWithValue(error.response?.data.message);
       } else if (error instanceof Error) {
         return thunkAPI.rejectWithValue(error.message);
