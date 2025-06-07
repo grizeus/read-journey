@@ -13,17 +13,17 @@ const Progress = () => {
   const bookStatus = getBookStatus(book);
 
   return (
-    <div className="mx-auto flex flex-col items-center justify-center gap-5 pb-2.5 md:gap-12.5 md:pb-17">
+    <div className="progressContainer w-73 md:w-1/2 lg:w-full">
       {bookStatus.status === null || !bookStatus.isBookStarted ? (
         <>
-          <h2 className="self-start text-lg leading-none md:text-xl">
+          <h2 className="self-start mb-3.5 text-lg leading-none md:text-xl">
             Progress
           </h2>
-          <p className="text-tarnished text-sm leading-none">
+          <p className="mb-5 text-tarnished tracking-tight text-sm leading-4.5">
             Here you will see when and how much you read. To record, click on
             the red button above.
           </p>
-          <div className="bg-ebony flex size-20 items-center justify-center rounded-full md:size-25">
+          <div className="bg-ebony mx-auto mb-5 flex size-20 items-center justify-center rounded-full md:size-25">
             <picture>
               <source
                 srcSet={`${starImage} 1x, ${starImage2x} 2x`}
