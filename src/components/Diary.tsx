@@ -43,7 +43,7 @@ export default function Diary() {
 
   return (
     <div className="relative overflow-visible">
-      <ul className="scrollbar-thumb-rounded-2xl h-74 scrollbar-w-1 scrollbar scrollbar-track-transparent scrollbar-thumb-charcoal-black relative flex max-h-53 w-[calc(100%+26px)] flex-col-reverse gap-4 overflow-y-auto overflow-y-scroll pr-6 md:max-h-63 md:gap-3.5 xl:max-h-93 xl:w-[calc(100%+30px)] xl:gap-5.5">
+      <ul className="diary-list-scroll relative transition-colors duration-300 ease-in-out flex h-74 max-h-53 w-[calc(100%+26px)] flex-col-reverse gap-4 overflow-y-scroll pr-6 md:max-h-63 md:gap-3.5 xl:max-h-93 xl:w-[calc(100%+30px)] xl:gap-5.5">
         {diaryData.map((entryGroup, index) => (
           <li
             key={entryGroup.date}
