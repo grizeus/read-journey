@@ -9,7 +9,7 @@ const ReadingMain = () => {
   console.log(bookStatus);
   return (
     <div className="bg-charcoal-black w-full min-w-84 rounded-4xl px-5 py-10 md:px-10">
-      <h2 className="myReadingTitle mb-10 text-xl leading-none md:mb-8 md:text-[28px] md:leading-8 md:tracking-wide xl:mb-11">
+      <h2 className="font-bold mb-10 text-xl leading-none md:mb-8 md:text-[28px] md:leading-8 md:tracking-wide xl:mb-11">
         My Reading
       </h2>
       <div className="myReadingItemContainer flex flex-col items-center justify-center gap-2.5 md:gap-6">
