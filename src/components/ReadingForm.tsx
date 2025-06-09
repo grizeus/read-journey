@@ -107,7 +107,7 @@ export default function ReadingForm() {
       return;
     }
 
-    if (!isFirstSession && +page > maxReadPage + 1) {
+    if (!isFirstSession && page > maxReadPage + 1) {
       toast.error(
         `You cannot skip pages. The starting page must not be greater than the last read page (${maxReadPage}).`
       );
@@ -139,7 +139,7 @@ export default function ReadingForm() {
       return;
     }
 
-    if (+page > totalPages) {
+    if (page > totalPages) {
       toast.error(
         `Page number cannot exceed the total pages (${totalPages}) of the book.`
       );
@@ -178,13 +178,13 @@ export default function ReadingForm() {
 
   return (
     <>
-      {bookStatus?.status === "in-progress" ? (
-        <form className="mb-10 flex-1" onSubmit={handleSubmit(onSubmitStop)}>
+      {bookStatus?.status === "active" ? (
+        <form className="mb-10" onSubmit={handleSubmit(onSubmitStop)}>
           <h3 className="text-2xs mb-2 ml-3.5 leading-3 tracking-tight md:text-sm md:leading-4.5">
             Stop page:
           </h3>
 
-          <div className="bg-ebony relative flex items-center gap-2.5 rounded-xl px-4.5 py-4">
+          <div className="bg-ebony relative flex items-center gap-2.5 rounded-xl px-4.5 py-4 md:w-74 xl:w-full">
             <label className="text-tarnished text-nowrap">Page number:</label>
             <input
               {...register("page")}
@@ -210,17 +210,18 @@ export default function ReadingForm() {
 
           <button
             type="submit"
-            className="hover:text-charcoal-black hover:bg-ivory focus:bg-ivory focus:text-charcoal-black md:tracking-4.5 text-ivory border-ivory/20 mt-5 rounded-4xl bg-transparent px-5 py-2.5 text-sm leading-4.5 font-bold tracking-wide transition-colors duration-300 ease-in-out hover:border-none hover:outline-none focus:border-none focus:outline-none md:px-7 md:py-3 md:text-base">
+            disabled={isDisabled}
+            className="hover:text-charcoal-black hover:bg-ivory focus:bg-ivory focus:text-charcoal-black md:tracking-4.5 text-ivory border-ivory/20 mt-5 rounded-4xl border bg-transparent px-5 py-2.5 text-sm leading-4.5 font-bold tracking-wide transition-colors duration-300 ease-in-out hover:border-transparent hover:outline-none focus:border-transparent focus:outline-none disabled:pointer-events-none disabled:opacity-40 md:px-7 md:py-3 md:text-base">
             To stop
           </button>
         </form>
       ) : (
-        <form className="mb-10 flex-1" onSubmit={handleSubmit(onSubmitStart)}>
+        <form className="mb-10" onSubmit={handleSubmit(onSubmitStart)}>
           <h3 className="text-2xs mb-2 ml-3.5 leading-3 tracking-tight md:text-sm md:leading-4.5">
             Start page:
           </h3>
 
-          <div className="bg-ebony relative flex items-center gap-2.5 rounded-xl px-4.5 py-4">
+          <div className="bg-ebony relative flex items-center gap-2.5 rounded-xl px-4.5 py-4 md:w-74 xl:w-full">
             <label className="text-tarnished text-nowrap">Page number:</label>
             <input
               {...register("page")}
@@ -248,7 +249,7 @@ export default function ReadingForm() {
           <button
             type="submit"
             disabled={isDisabled}
-            className="hover:text-charcoal-black border hover:bg-ivory focus:bg-ivory focus:text-charcoal-black md:tracking-4.5 text-ivory border-ivory/20 mt-5 rounded-4xl bg-transparent px-5 py-2.5 text-sm leading-4.5 font-bold tracking-wide transition-colors duration-300 ease-in-out hover:border-transparent hover:outline-none focus:border-transparent focus:outline-none disabled:pointer-events-none disabled:opacity-40 md:px-7 md:py-3 md:text-base">
+            className="hover:text-charcoal-black hover:bg-ivory focus:bg-ivory focus:text-charcoal-black md:tracking-4.5 text-ivory border-ivory/20 mt-5 rounded-4xl border bg-transparent px-5 py-2.5 text-sm leading-4.5 font-bold tracking-wide transition-colors duration-300 ease-in-out hover:border-transparent hover:outline-none focus:border-transparent focus:outline-none disabled:pointer-events-none disabled:opacity-40 md:px-7 md:py-3 md:text-base">
             To start
           </button>
         </form>

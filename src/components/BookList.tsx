@@ -2,15 +2,22 @@ import clsx from "clsx";
 import BookCard from "./BookCard";
 
 //NOTE: need only interfaces, not component yet
+type ProgressStatus = "active" | "inactive";
+type BookStatus = "unread" | "in-progress" | "done" | "all";
 
-type Status = "unread" | "in-progress" | "done" | "all";
+export interface TimeLeft {
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
 export interface Progress {
   _id?: string;
   startReading: string;
   finishReading: string;
   startPage: number;
   finishPage: number;
-  status?: Status;
+  status: ProgressStatus;
 }
 
 export interface Book {
@@ -21,7 +28,9 @@ export interface Book {
   totalPages: number;
   recommend?: boolean;
   progress?: Progress[];
-  status?: Status;
+  status?: BookStatus;
+  owner?: string;
+  timeLeftToRead?: TimeLeft;
 }
 
 interface BooksListProps {

@@ -1,4 +1,4 @@
-import type { Book, Progress } from "../../components/BookList";
+import type { Book, Progress, TimeLeft } from "../../components/BookList";
 
 export const shouldShowHeader = (pathname: string) => {
   const showPaths = ["/recommended", "/library"];
@@ -104,4 +104,18 @@ export const calculatePercentage = (
 
 export const calculateTotalPagesRead = (entries: Progress[]) => {
   return entries.reduce((sum, entry) => sum + calculatePagesRead(entry), 0);
+};
+
+export const getTimeLeft = (timeLeft: TimeLeft) => {
+  const { hours, minutes } = timeLeft;
+  let res: string = "";
+  if (hours) {
+    res += `${hours} ${hours === 1 ? "hour" : "hours"}`;
+  }
+  if (minutes) {
+    res += ` and ${minutes} ${minutes === 1 ? "minute" : "minutes"} left`;
+  } else if (res) {
+    res += "left";
+  }
+  return res;
 };

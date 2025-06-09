@@ -50,7 +50,7 @@ export default function DairyEntry({ entry, book }: { entry: Progress; book: Boo
         </div>
         <button
           disabled={isDisabled}
-          className="disabled:opacity-40 disabled:pointer-events-none outline-transparent bg-transparent pt-0.5 stroke-ebony transition-colors duration-300 ease-in-out hover:stroke-red-500 focus:stroke-red-500 md:pt-1.5"
+          className="disabled:opacity-40 disabled:pointer-events-none outline-transparent bg-transparent pt-0.5 stroke-tarnished transition-colors duration-300 ease-in-out hover:stroke-red-500 focus:stroke-red-500 md:pt-1.5"
           type="button"
           onClick={() => handleDelete(entry._id!)}>
           <svg width={14} height={14}>

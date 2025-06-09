@@ -11,7 +11,7 @@ interface DiaryGroup {
   };
 }
 
-export default function Diary() {
+const Diary = () => {
   const book = useSelector(selectReadingBook);
   const progress = book?.progress?.filter(
     entry =>
@@ -43,17 +43,21 @@ export default function Diary() {
 
   return (
     <div className="relative overflow-visible">
-      <ul className="scrollbar-thumb-rounded-2xl scrollbar-w-1 scrollbar scrollbar-track-transparent scrollbar-thumb-charcoal-black relative flex max-h-53 w-[calc(100%+26px)] flex-col-reverse gap-4 overflow-y-auto pr-6 md:max-h-63 md:gap-3.5 xl:max-h-93 xl:w-[calc(100%+30px)] xl:gap-5.5">
+      <ul className="diary-list-scroll relative flex h-53 min-w-74 flex-col-reverse gap-4 overflow-y-scroll pr-6 md:h-63 md:w-[calc(100%+30px)] md:gap-3.5 xl:h-93 xl:w-[calc(100%+30px)] xl:gap-5.5">
         {diaryData.map((entryGroup, index) => (
           <li
             key={entryGroup.date}
-            className={`relative w-full before:absolute before:left-0 before:top-0 before:size-4 before:border-4 before:border-ebony before:bg-charcoal-black before:z-1 md:before:size-5 before:rounded-sm ${index === diaryData.length - 1 ? "pt-4 xl:pt-5 before:border-ivory before:top-4 xl:before:top-5" : ""}`}>
-            <div className="absolute top-4 w-0.5 left-2 h-[calc(100%+16px)] bg-ebony z-0 md:h-[calc(100%+14px)] md:top-4 md:left-2.5 xl:top-5 xl:h-[calc(100%+22px)]"></div>
-            <div className="flex justify-between pl-6 pr-5 mb-4 md:pl-7.5 md:pr-5.5 xl:mb-7">
-              <h3 className="text-xs leading-4 tracking-wide md:text-base md:leading-4.5">{entryGroup.date}</h3>
-              <p className="text-xs leading-4 text-tarnished md:text-sm md:leading-4.5">{entryGroup.totalPages} pages</p>
+            className={`before:border-tarnished before:bg-charcoal-black relative w-full before:absolute before:top-0 before:left-0 before:z-1 before:size-4 before:rounded-sm before:border-4 md:before:size-5 ${index === diaryData.length - 1 ? "before:border-ivory pt-4 before:top-4 xl:pt-5 xl:before:top-5" : ""}`}>
+            <div className="bg-charcoal-black absolute top-4 left-2 z-0 h-[calc(100%+16px)] w-0.5 md:top-4 md:left-2.5 md:h-[calc(100%+14px)] xl:top-5 xl:h-[calc(100%+22px)]"></div>
+            <div className="mb-4 flex justify-between pr-5 pl-6 md:pr-5.5 md:pl-7.5 xl:mb-7">
+              <h3 className="text-xs leading-4 tracking-wide md:text-base md:leading-4.5">
+                {entryGroup.date}
+              </h3>
+              <p className="text-tarnished text-xs leading-4 md:text-sm md:leading-4.5">
+                {entryGroup.totalPages} pages
+              </p>
             </div>
-            <ul className="flex flex-col justify-between ml-6 gap-4 md:ml-7.5 xl:gap-7">
+            <ul className="ml-6 flex flex-col justify-between gap-4 md:ml-7.5 xl:gap-7">
               {entryGroup.entries
                 .sort(
                   (a, b) =>
@@ -70,3 +74,5 @@ export default function Diary() {
     </div>
   );
 }
+
+export default Diary;
