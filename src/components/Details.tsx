@@ -19,18 +19,18 @@ export default function Details() {
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 md:items-center md:gap-5 lg:items-start lg:gap-4">
-      <div className="flex justify-between items-center w-full">
-        <h2 className="text-lg tracking-tight font-bold leading-none md:text-xl">
+      <div className="flex w-full items-center justify-between">
+        <h2 className="text-lg leading-none font-bold tracking-tight md:text-xl">
           {activeBtn === "diary" ? "Diary" : "Statistics"}
         </h2>
         <div className="flex gap-2">
           <button
             type="button"
             onClick={onDiaryClick}
-            className="flex h-10 w-10 items-center justify-center p-2 transition-colors focus:outline-none">
+            className="flex size-4 transition-colors focus:outline-none md:size-5">
             <svg
               className={clsx(
-                "hover:stroke-ivory size-6 transition-colors",
+                "hover:stroke-ivory w-full transition-colors",
                 activeBtn === "diary" ? "stroke-ivory" : "stroke-tarnished"
               )}>
               <use href={`${sprite}#icon-hourglass`}></use>
@@ -39,10 +39,10 @@ export default function Details() {
           <button
             type="button"
             onClick={onStatisticsClick}
-            className="flex h-10 w-10 items-center justify-center p-2 transition-colors focus:outline-none">
+            className="flex size-4 transition-colors focus:outline-none md:size-5">
             <svg
               className={clsx(
-                "hover:stroke-ivory size-6 transition-colors",
+                "hover:stroke-ivory size-4 transition-colors md:size-5",
                 activeBtn === "statistics" ? "stroke-ivory" : "stroke-tarnished"
               )}>
               <use href={`${sprite}?v=2#icon-pie-chart`}></use>
@@ -51,7 +51,7 @@ export default function Details() {
         </div>
       </div>
       {activeBtn === "statistics" && (
-        <p className="hidden text-tarnished text-sm lg:block">
+        <p className="text-tarnished hidden w-78 text-sm leading-4.5 xl:block">
           Each page, each chapter is a new round of knowledge, a new step
           towards understanding. By rewriting statistics, we create our own
           reading history.
@@ -59,8 +59,10 @@ export default function Details() {
       )}
       <div
         className={clsx(
-          "w-full rounded-xl bg-ebony",
-          activeBtn === "diary" ? "px-4 md:px-5" : "p-5 flex flex-col justify-center items-center gap-5 md:p-7 xl:p-5 xl:gap-5 md:gap-4"
+          "bg-ebony w-full rounded-xl",
+          activeBtn === "diary"
+            ? "px-4 md:px-5"
+            : "flex flex-col items-center justify-center gap-5 p-5 md:gap-4 md:p-7 xl:gap-2.5 xl:p-5"
         )}>
         {activeBtn === "diary" ? <Diary /> : <Statistics />}
       </div>

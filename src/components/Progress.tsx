@@ -13,7 +13,7 @@ const Progress = () => {
   const bookStatus = getBookStatus(book);
 
   return (
-    <div className="progressContainer w-73 md:w-1/2 lg:w-full">
+    <div className="progressContainer w-full">
       {bookStatus.status === null || !bookStatus.isBookStarted ? (
         <>
           <h2 className="self-start mb-3.5 text-lg leading-none md:text-xl">

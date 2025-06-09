@@ -139,7 +139,7 @@ export default function ReadingForm() {
       return;
     }
 
-    if (+page > totalPages) {
+    if (page > totalPages) {
       toast.error(
         `Page number cannot exceed the total pages (${totalPages}) of the book.`
       );
@@ -184,7 +184,7 @@ export default function ReadingForm() {
             Stop page:
           </h3>
 
-          <div className="bg-ebony relative flex items-center gap-2.5 rounded-xl px-4.5 py-4">
+          <div className="bg-ebony relative flex items-center gap-2.5 rounded-xl px-4.5 py-4 md:w-74 xl:w-full">
             <label className="text-tarnished text-nowrap">Page number:</label>
             <input
               {...register("page")}
@@ -221,7 +221,7 @@ export default function ReadingForm() {
             Start page:
           </h3>
 
-          <div className="bg-ebony relative flex items-center gap-2.5 rounded-xl px-4.5 py-4">
+          <div className="bg-ebony relative flex items-center gap-2.5 rounded-xl px-4.5 py-4 md:w-74 xl:w-full">
             <label className="text-tarnished text-nowrap">Page number:</label>
             <input
               {...register("page")}

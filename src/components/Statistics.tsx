@@ -35,10 +35,8 @@ export default function Statistics() {
 
   return (
     <>
-      <div>
-        <svg
-          className="size-29 md:size-34.5 xl:size-42 rounded-xl"
-          viewBox={`0 0 ${radius * 2} ${radius * 2}`}>
+      <div className="flex size-29 items-center justify-center md:size-34.5 xl:size-47.25">
+        <svg className="rounded-xl xl:size-42" viewBox={`0 0 ${radius * 2} ${radius * 2}`}>
           <circle
             stroke="#1f1f1f"
             fill="transparent"
@@ -48,7 +46,7 @@ export default function Statistics() {
             cy={radius}
           />
           <circle
-            className="transition-[stroke-dashoffset] duration-800 ease"
+            className="ease transition-[stroke-dashoffset] duration-800"
             stroke="#30b94d"
             fill="transparent"
             strokeWidth={strokeWidth}
@@ -65,18 +63,20 @@ export default function Statistics() {
             y="50%"
             dominantBaseline="middle"
             textAnchor="middle"
-            className="font-bold md:text-xl md:leading-none text-lg leading-5 fill-ivory">
+            className="fill-ivory text-lg leading-5 font-bold md:text-xl md:leading-none">
             100%
           </text>
         </svg>
       </div>
-      <div className="flex gap-4">
-        <div className="size-3.5 bg-neon rounded-sm"></div>
-        <div className="md:gap-2 flex flex-col gap-1">
-          <p className="text-sm text-ivory">
+      <div className="flex items-start gap-4">
+        <div className="bg-neon size-3.5 rounded-sm"></div>
+        <div className="flex flex-col gap-1 md:gap-2">
+          <p className="text-ivory text-sm leading-4.5 md:text-xl md:leading-none">
             {Math.round(percent * 100).toFixed(2)}%
           </p>
-          <p className="text-2xs leading-3 text-tarnished md:text-xs md:leading-3.5">{pagesRead} pages read</p>
+          <p className="text-2xs text-tarnished leading-3 md:text-xs md:leading-3.5">
+            {pagesRead} pages read
+          </p>
         </div>
       </div>
     </>

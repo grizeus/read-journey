@@ -5,6 +5,12 @@ import BookCard from "./BookCard";
 type ProgressStatus = "active" | "inactive";
 type BookStatus = "unread" | "in-progress" | "done" | "all";
 
+export interface TimeLeft {
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
 export interface Progress {
   _id?: string;
   startReading: string;
@@ -23,6 +29,8 @@ export interface Book {
   recommend?: boolean;
   progress?: Progress[];
   status?: BookStatus;
+  owner?: string;
+  timeLeftToRead?: TimeLeft;
 }
 
 interface BooksListProps {

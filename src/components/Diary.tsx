@@ -11,7 +11,7 @@ interface DiaryGroup {
   };
 }
 
-export default function Diary() {
+const Diary = () => {
   const book = useSelector(selectReadingBook);
   const progress = book?.progress?.filter(
     entry =>
@@ -43,7 +43,7 @@ export default function Diary() {
 
   return (
     <div className="relative overflow-visible">
-      <ul className="diary-list-scroll relative transition-colors duration-300 ease-in-out flex h-74 max-h-53 w-[calc(100%+26px)] flex-col-reverse gap-4 overflow-y-scroll pr-6 md:max-h-63 md:gap-3.5 xl:max-h-93 xl:w-[calc(100%+30px)] xl:gap-5.5">
+      <ul className="diary-list-scroll relative flex h-53 min-w-74 flex-col-reverse gap-4 overflow-y-scroll pr-6 md:h-63 md:w-[calc(100%+30px)] md:gap-3.5 xl:h-93 xl:w-[calc(100%+30px)] xl:gap-5.5">
         {diaryData.map((entryGroup, index) => (
           <li
             key={entryGroup.date}
@@ -74,3 +74,5 @@ export default function Diary() {
     </div>
   );
 }
+
+export default Diary;
