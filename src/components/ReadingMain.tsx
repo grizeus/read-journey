@@ -3,11 +3,10 @@ import { selectReadingBook } from "../redux/books/selectors";
 import sprite from "../assets/sprite.svg";
 import { getBookStatus, getTimeLeft } from "../lib/utils";
 import defaultBook from "../assets/images/book-cover.png";
+
 const ReadingMain = () => {
   const book = useSelector(selectReadingBook);
-  console.log(book);
   const bookStatus = getBookStatus(book);
-  console.log(bookStatus);
   return (
     <div className="bg-charcoal-black w-full min-w-84 rounded-4xl px-5 py-10 md:px-10">
       <div className="flex justify-between">

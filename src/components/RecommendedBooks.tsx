@@ -14,7 +14,7 @@ const RecommendedBooks = () => {
   const recommendedBooks = getRandomBooks(books, 3);
   return (
     <div className="bg-ebony rounded-xl p-5 md:w-78 md:pr-10">
-      <h3 className="mb-5 text-lg leading-none font-bold tracking-tight md:mb-10 md:text-xl">
+      <h3 className="mb-3.5 text-lg leading-none font-bold tracking-tight md:mb-5 md:text-xl">
         Recommended books
       </h3>
 
@@ -22,7 +22,7 @@ const RecommendedBooks = () => {
         <Loader className="h-40" />
       ) : (
         <>
-          <ul className="mb-4 flex gap-5 md:mb-5">
+          <ul className="mb-4 flex gap-5 md:mb-5 xl:mb-3.5">
             {recommendedBooks && recommendedBooks.length > 0 ? (
               recommendedBooks.map(book => (
                 <li key={book._id}>

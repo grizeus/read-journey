@@ -165,16 +165,11 @@ export default function ReadingForm() {
   const bookStatus = getBookStatus(book);
   const isDisabled = book?.status === "done";
 
-  if (book?.status === "done") {
-    return (
-      <div className="w-full p-0 md:w-1/2">
-        <h3 className="text-2xs mb-2 pl-3.5 leading-3 md:text-sm md:leading-none">
-          Reading Progress
-        </h3>
-        <p>You have finished reading this book!</p>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (book?.status === "done") {
+      setShowSuccessModal(true);
+    }
+  }, [book]);
 
   return (
     <>

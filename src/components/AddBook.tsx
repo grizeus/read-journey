@@ -84,7 +84,7 @@ const AddBook = () => {
     !errors.pages;
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="mb-5 flex-1">
+      <form onSubmit={handleSubmit(onSubmit)} className="mb-5 xl:mb-0 ">
         <h3 className="text-2xs mb-2 ml-3.5 leading-3 tracking-tight md:text-sm md:leading-4.5">
           Create your library:
         </h3>

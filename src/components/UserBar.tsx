@@ -3,12 +3,16 @@ import sprite from "../assets/sprite.svg";
 import MobileMenu from "./MobileMenu";
 import { useSelector } from "react-redux";
 import { selectUserName } from "../redux/auth/selectors";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../redux/store";
+import { logOut } from "../redux/auth/operations";
 
 const UserBar = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const name = useSelector(selectUserName) ?? "";
   const [isOpen, setIsOpen] = useState(false);
   const handleLogOut = () => {
-    console.log("log out");
+    dispatch(logOut());
   };
   const toggleMenu = () => {
     setIsOpen(prev => !prev);
