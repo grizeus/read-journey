@@ -244,7 +244,7 @@ export default function ReadingForm() {
           <button
             type="submit"
             disabled={isDisabled}
-            className="hover:text-charcoal-black hover:bg-ivory focus:bg-ivory focus:text-charcoal-black md:tracking-4.5 text-ivory border-ivory/20 mt-5 rounded-4xl border bg-transparent px-5 py-2.5 text-sm leading-4.5 font-bold tracking-wide transition-colors duration-300 ease-in-out hover:border-transparent hover:outline-none focus:border-transparent focus:outline-none disabled:pointer-events-none disabled:opacity-40 md:px-7 md:py-3 md:text-base">
+            className="hover:text-charcoal-black hover:bg-ivory focus:bg-ivory focus:text-charcoal-black md:tracking-4.5 text-ivory border-ivory/20 mt-5 rounded-4xl border bg-transparent px-5 py-2.5 text-sm leading-4.5 font-bold tracking-wide transition-colors duration-300 ease-in-out hover:border-transparent hover:outline-none focus:border-transparent focus:outline-none disabled:pointer-events-none disabled:opacity-40 h-9.5 md:h-10.5 md:px-7 md:py-3 md:text-base">
             To start
           </button>
         </form>

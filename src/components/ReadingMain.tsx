@@ -8,7 +8,7 @@ const ReadingMain = () => {
   const book = useSelector(selectReadingBook);
   const bookStatus = getBookStatus(book);
   return (
-    <div className="bg-charcoal-black w-full min-w-84 rounded-4xl px-5 py-10 md:px-10">
+    <div className="bg-charcoal-black w-full min-w-84 rounded-4xl px-5 pt-10 md:px-10">
       <div className="flex justify-between">
         
       <h2 className="mb-10 text-xl leading-none font-bold md:mb-8 md:text-[28px] md:leading-8 md:tracking-wide xl:mb-11">
@@ -27,8 +27,8 @@ const ReadingMain = () => {
           />
         </div>
         <div className="discriptionAndBtnWrapper flex flex-col items-center justify-center gap-5 md:gap-4 xl:gap-6">
-          <div className="titleAndAuthorWrapper w-36.5 md:w-79">
-            <h3 className="bookTitle mb-1 w-full text-center text-sm md:mb-1 md:text-xl md:leading-none">
+          <div className="titleAndAuthorWrapper ">
+            <h3 className="bookTitle mb-1 text-center w-75 md:w-156 xl:w-192 whitespace-nowrap overflow-hidden overflow-ellipsis text-sm md:mb-1 md:text-xl md:leading-none">
               {book?.title}
             </h3>
             <p className="bookAuthor text-2xs text-tarnished w-full text-center leading-3 md:text-sm md:leading-4.5">
