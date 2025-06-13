@@ -111,12 +111,12 @@ const RecommededMain = () => {
 
   return (
     <>
-      <div className="bg-charcoal-black w-full min-w-84 rounded-4xl px-5 py-10 md:px-10 xl:pb-7">
+      <div className="bg-charcoal-black w-full min-w-84 rounded-4xl px-5 py-10  md:px-10 xl:pb-7">
         <div className="mb-5.5 flex items-center justify-between md:mb-5">
           <h1 className="text-xl leading-none font-bold tracking-tight md:text-[28px] md:leading-8 md:tracking-wide">
             Recommended
           </h1>
-          <ul className="flex items-center gap-[8px]">
+          <ul className="flex items-center gap-2">
             <li className="border-tarnished flex size-10 items-center justify-center rounded-full border">
               <button
                 type="button"
@@ -142,7 +142,7 @@ const RecommededMain = () => {
           </ul>
         </div>
         {loading && <Loader />}
-        <ul className="flex flex-wrap items-center gap-5 md:gap-6 xl:gap-x-5">
+        <ul className="flex flex-wrap items-center gap-5 md:gap-6 xl:gap-x-5 xl:gap-y-7">
           {books.map(book => (
             <li key={book._id} onClick={() => openModal(book)}>
               <RecommendedItem
