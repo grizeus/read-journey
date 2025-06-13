@@ -109,11 +109,11 @@ export const calculateTotalPagesRead = (entries: Progress[]) => {
 export const getTimeLeft = (timeLeft: TimeLeft) => {
   const { hours, minutes } = timeLeft;
   let res: string = "";
-  if (hours) {
+  if (hours && hours > 0) {
     res += `${hours} ${hours === 1 ? "hour" : "hours"}`;
   }
-  if (minutes) {
-    res += ` and ${minutes} ${minutes === 1 ? "minute" : "minutes"} left`;
+  if (minutes && minutes > 0) {
+    res += `${hours > 0 ? " and " : ""}${minutes} ${minutes === 1 ? "minute" : "minutes"} left`;
   } else if (res) {
     res += "left";
   }

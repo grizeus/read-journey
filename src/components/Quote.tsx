@@ -3,7 +3,7 @@ import bookPile2x from "../assets/images/books-quote@2x.png";
 
 const Quote = () => {
   return (
-    <div className="bg-ebony hidden items-center gap-[14px] rounded-xl px-5 pt-4 pb-3.5 tracking-tight xl:flex">
+    <div className="bg-ebony hidden items-center  xl:gap-x-3.5 rounded-xl px-5 pt-4 xl:pb-3.5 xl:tracking-tight xl:flex">
       <picture>
         <source
           srcSet={`${bookPile} 1x, ${bookPile2x} 2x`}

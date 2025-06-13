@@ -165,16 +165,11 @@ export default function ReadingForm() {
   const bookStatus = getBookStatus(book);
   const isDisabled = book?.status === "done";
 
-  if (book?.status === "done") {
-    return (
-      <div className="w-full p-0 md:w-1/2">
-        <h3 className="text-2xs mb-2 pl-3.5 leading-3 md:text-sm md:leading-none">
-          Reading Progress
-        </h3>
-        <p>You have finished reading this book!</p>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (book?.status === "done") {
+      setShowSuccessModal(true);
+    }
+  }, [book]);
 
   return (
     <>
@@ -249,7 +244,7 @@ export default function ReadingForm() {
           <button
             type="submit"
             disabled={isDisabled}
-            className="hover:text-charcoal-black hover:bg-ivory focus:bg-ivory focus:text-charcoal-black md:tracking-4.5 text-ivory border-ivory/20 mt-5 rounded-4xl border bg-transparent px-5 py-2.5 text-sm leading-4.5 font-bold tracking-wide transition-colors duration-300 ease-in-out hover:border-transparent hover:outline-none focus:border-transparent focus:outline-none disabled:pointer-events-none disabled:opacity-40 md:px-7 md:py-3 md:text-base">
+            className="hover:text-charcoal-black hover:bg-ivory focus:bg-ivory focus:text-charcoal-black md:tracking-4.5 text-ivory border-ivory/20 mt-5 rounded-4xl border bg-transparent px-5 py-2.5 text-sm leading-4.5 font-bold tracking-wide transition-colors duration-300 ease-in-out hover:border-transparent hover:outline-none focus:border-transparent focus:outline-none disabled:pointer-events-none disabled:opacity-40 h-9.5 md:h-10.5 md:px-7 md:py-3 md:text-base">
             To start
           </button>
         </form>

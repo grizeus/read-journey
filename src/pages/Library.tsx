@@ -8,7 +8,7 @@ const LibraryPage = () => {
   return (
     <div className="flex w-full flex-col gap-2.5 md:gap-4 xl:flex-row">
       <DocumentTitle>ReadJourney — Library</DocumentTitle>
-      <Dashboard>
+      <Dashboard className="xl:gap-19.5">
         <AddBook />
         <RecommendedBooks />
       </Dashboard>
