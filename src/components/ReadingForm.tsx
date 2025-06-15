@@ -10,7 +10,7 @@ import { getBookStatus } from "../lib/utils";
 import toast from "react-hot-toast";
 import { startReading, stopReading } from "../redux/books/operations";
 import { useParams } from "react-router";
-import type { Book } from "./BookList";
+import type { Book } from "../types";
 import type { AppDispatch } from "../redux/store";
 import RenderIcon from "./RenderIcon";
 
@@ -37,9 +37,11 @@ export default function ReadingForm() {
 
   const closeSuccessModal = () => setShowSuccessModal(false);
   const pageId = useId();
-  const { totalPages } = useSelector(selectReadingBook) as Book;
+  const book: Book = useSelector(selectReadingBook);
+  const totalPages = book?.totalPages;
   const { bookId } = useParams();
   const resolver = useYupValidationResolver(validationSchema);
+
   const {
     register,
     handleSubmit,
@@ -54,7 +56,6 @@ export default function ReadingForm() {
   });
 
   const page = useWatch({ control, name: "page" });
-  const book = useSelector(selectReadingBook);
 
   const maxReadPage =
     book?.progress?.reduce((max, session) => {

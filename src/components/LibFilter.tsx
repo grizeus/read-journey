@@ -6,16 +6,7 @@ import { useSelector } from "react-redux";
 import { selectStatus } from "../redux/filters/selectors";
 import { setStatusFilter } from "../redux/filters/slice";
 import { getOwnBooks } from "../redux/books/operations";
-
-export const Option = {
-  unread: "Unread",
-  "in-progress": "In progress",
-  done: "Done",
-  all: "All books",
-} as const;
-
-export type OptionKey = keyof typeof Option;
-export type OptionValue = (typeof Option)[OptionKey];
+import  { type OptionKey, type OptionValue, Option } from "../types";
 
 const getKeyByValue = (value: string): OptionKey => {
   return (

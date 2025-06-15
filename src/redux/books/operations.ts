@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import instance from "../../api/instance";
 import axios from "axios";
 import toast from "react-hot-toast";
-import type { Book } from "../../components/BookList";
+import type { Book } from "../../types";
 
 interface GetRecommendedBooksParams {
   limit?: number;

@@ -51,6 +51,17 @@ const handleRejected = (
       : "An unknown error occurred");
 };
 
+const handleFullfilled = (state: AuthState, action: PayloadAction<AuthState>) => {
+  state.loading = false;
+  state.name = action.payload.name;
+  state.email = action.payload.email;
+  state.token = action.payload.token;
+  state.refreshToken = action.payload.refreshToken;
+  state.isLoggedIn = true;
+  state.error = null;
+  state.isRefreshing = false;
+};
+
 const initialState: AuthState = {
   name: null,
   email: null,
@@ -69,25 +80,10 @@ const authSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(register.pending, handlePending)
-      .addCase(register.fulfilled, (state, action) => {
-        state.loading = false;
-        state.name = action.payload.name;
-        state.email = action.payload.email;
-        state.token = action.payload.token;
-        state.refreshToken = action.payload.refreshToken;
-        state.isLoggedIn = true;
-      })
+      .addCase(register.fulfilled, handleFullfilled)
       .addCase(register.rejected, handleRejected)
       .addCase(logIn.pending, handlePending)
-      .addCase(logIn.fulfilled, (state, action) => {
-        state.loading = false;
-        state.name = action.payload.name;
-        state.email = action.payload.email;
-        state.token = action.payload.token;
-        state.refreshToken = action.payload.refreshToken;
-        state.isLoggedIn = true;
-        state.error = null;
-      })
+      .addCase(logIn.fulfilled, handleFullfilled)
       .addCase(logIn.rejected, handleRejected)
       .addCase(clearError, state => {
         state.error = null;
@@ -116,16 +112,7 @@ const authSlice = createSlice({
           state.error = null;
         }
       })
-      .addCase(getCurrentUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.name = action.payload.name;
-        state.email = action.payload.email;
-        state.token = action.payload.token;
-        state.refreshToken = action.payload.refreshToken;
-        state.isLoggedIn = true;
-        state.isRefreshing = false;
-        state.error = null;
-      })
+      .addCase(getCurrentUser.fulfilled, handleFullfilled)
       .addCase(getCurrentUser.rejected, (state, action) => {
         state.error =
           typeof action.payload === "string"

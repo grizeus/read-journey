@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { OptionValue } from "../../components/LibFilter";
+import type { OptionValue } from "../../types";
 
 interface FilterState {
   title: string;
@@ -32,6 +32,6 @@ const filtersSlice = createSlice({
   },
 });
 
-export const { setFilters, clearFilters, setStatusFilter } =
+export const { setFilters, setStatusFilter } =
   filtersSlice.actions;
 export const filtersReducer = filtersSlice.reducer;
