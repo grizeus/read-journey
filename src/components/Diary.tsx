@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { selectReadingBook } from "../redux/books/selectors";
 import DiaryEntry from "./DiaryEntry";
-import type { Progress } from "./BookList";
+import type { Progress } from "../types";
 
 interface DiaryGroup {
   [date: string]: {
@@ -13,8 +13,8 @@ interface DiaryGroup {
 
 const Diary = () => {
   const book = useSelector(selectReadingBook);
-  const progress = book?.progress?.filter(
-    entry =>
+  const progress: Progress[] | undefined = book?.progress?.filter(
+    (entry: Progress) =>
       entry.startReading &&
       entry.finishReading &&
       entry.startPage != null &&
@@ -22,7 +22,7 @@ const Diary = () => {
   );
 
   const groupedByDate =
-    progress?.reduce<DiaryGroup>((acc, entry) => {
+    progress?.reduce<DiaryGroup>((acc, entry: Progress) => {
       const date = new Date(entry.finishReading).toLocaleDateString("uk-UA");
       const pagesRead = entry.finishPage - entry.startPage + 1;
       if (!acc[date]) {

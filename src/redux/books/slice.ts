@@ -14,7 +14,7 @@ import {
   startReading,
   stopReading,
 } from "./operations";
-import type { Book } from "../../components/BookList";
+import type { Book } from "../../types";
 
 interface BookState {
   books: Book[];

@@ -37,7 +37,7 @@ export default function ReadingForm() {
 
   const closeSuccessModal = () => setShowSuccessModal(false);
   const pageId = useId();
-  const book: Book = useSelector(selectReadingBook);
+  const book: Book | null = useSelector(selectReadingBook);
   const totalPages = book?.totalPages;
   const { bookId } = useParams();
   const resolver = useYupValidationResolver(validationSchema);
@@ -116,7 +116,7 @@ export default function ReadingForm() {
       return;
     }
 
-    if (page > totalPages) {
+    if (page > totalPages!) {
       toast.error(
         `Page number cannot exceed the total pages (${totalPages}) of the book.`
       );
@@ -140,7 +140,7 @@ export default function ReadingForm() {
       return;
     }
 
-    if (page > totalPages) {
+    if (page > totalPages!) {
       toast.error(
         `Page number cannot exceed the total pages (${totalPages}) of the book.`
       );
