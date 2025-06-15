@@ -1,13 +1,6 @@
-//NOTE: need only interfaces, not component yet
+// Book types
 type ProgressStatus = "active" | "inactive";
 type BookStatus = "unread" | "in-progress" | "done" | "all";
-
-export interface TimeLeft {
-  hours: number;
-  minutes: number;
-  seconds: number;
-}
-
 export interface Progress {
   _id?: string;
   startReading: string;
@@ -29,3 +22,19 @@ export interface Book {
   owner?: string;
   timeLeftToRead?: TimeLeft;
 }
+
+export interface TimeLeft {
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
+export const Option = {
+  unread: "Unread",
+  "in-progress": "In progress",
+  done: "Done",
+  all: "All books",
+} as const;
+
+export type OptionKey = keyof typeof Option;
+export type OptionValue = (typeof Option)[OptionKey];

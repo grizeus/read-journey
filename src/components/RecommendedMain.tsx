@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import sprite from "../assets/sprite.svg";
-import type { Book } from "./BookList";
+import type { Book } from "../types";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../redux/store";
 import { useSelector } from "react-redux";

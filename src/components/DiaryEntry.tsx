@@ -6,7 +6,7 @@ import {
   calculateSpeed,
   calculateTotalMinutes,
 } from "../lib/utils";
-import type { Book, Progress } from "./BookList";
+import type { Book, Progress } from "../types";
 import type { AppDispatch } from "../redux/store";
 import sprite from "../assets/sprite.svg";
 

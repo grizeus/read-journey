@@ -2,12 +2,13 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 import { selectReadingBook } from "../redux/books/selectors";
+import type { Progress } from "../types";
 
 export default function Statistics() {
   const book = useSelector(selectReadingBook);
-  const progress = book?.progress || [];
+  const progress: Progress[] = book?.progress || [];
   const completedProgress = progress.filter(
-    entry =>
+    (entry: Progress) =>
       entry.startReading &&
       entry.finishReading &&
       entry.startPage != null &&

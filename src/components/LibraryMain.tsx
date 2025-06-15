@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import { selectOwnBooks } from "../redux/books/selectors";
-import { type Book } from "./BookList";
+import { type Book } from "../types";
 import LibFilter from "./LibFilter";
 import Modal from "./Modal";
 import { selectIsLoading } from "../redux/auth/selectors";

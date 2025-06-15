@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../redux/store";
 import { useId, useState } from "react";
 import { addBook } from "../redux/books/operations";
-import type { Book } from "./BookList";
+import type { Book } from "../types";
 import Info from "./Info";
 import Modal from "./Modal";
 
@@ -76,11 +76,9 @@ const AddBook = () => {
   const isValidTitle = title?.trim().length > 0 && !errors.title;
   const isValidAuthor = author?.trim().length > 0 && !errors.author;
   const isValidPages =
-    typeof pages === "string" &&
-    pages !== "" &&
     !isNaN(pages) &&
-    Number(pages) > 0 &&
-    Number.isInteger(Number(pages)) &&
+    pages > 0 &&
+    Number.isInteger(pages) &&
     !errors.pages;
   return (
     <>

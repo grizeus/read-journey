@@ -1,32 +1,6 @@
-import type { Book, Progress, TimeLeft } from "../../components/BookList";
+import type { Book, Progress, TimeLeft } from "../../types";
 
-export const shouldShowHeader = (pathname: string) => {
-  const showPaths = ["/recommended", "/library"];
-  const dynamicPaths = /^\/reading\/[^/]+$/;
 
-  return showPaths.includes(pathname) || dynamicPaths.test(pathname);
-};
-
-export const getFirstLetter = (name: string) => {
-  if (!name) return "";
-  return name.charAt(0).toUpperCase();
-};
-
-export const getBooksPerPage = ({
-  isMobile,
-  isTablet,
-}: {
-  isMobile: boolean;
-  isTablet: boolean;
-}) => {
-  if (isMobile) {
-    return 2;
-  } else if (isTablet) {
-    return 8;
-  } else {
-    return 10;
-  }
-};
 
 export const getRandomBooks = (books: Book[], count: number) => {
   const shuffled = [...books].sort(() => 0.5 - Math.random());
@@ -100,10 +74,6 @@ export const calculatePercentage = (
     total > 0;
 
   return isValid ? (((finish - start + 1) / total) * 100).toFixed(1) : "0.0";
-};
-
-export const calculateTotalPagesRead = (entries: Progress[]) => {
-  return entries.reduce((sum, entry) => sum + calculatePagesRead(entry), 0);
 };
 
 export const getTimeLeft = (timeLeft: TimeLeft) => {
