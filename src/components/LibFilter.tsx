@@ -59,7 +59,7 @@ const LibFilter = () => {
         <button
           className="border-ivory/30 flex w-full items-center justify-between rounded-xl border px-3.5 py-3 transition-colors duration-300 ease-in-out focus:outline-none md:p-3.5"
           onClick={toggleDropdown}>
-          <div className="text-base leading-5 font-medium">
+          <div className="text-xs leading-4 font-medium">
             {Option[curFilter]}
           </div>
           <svg
@@ -74,7 +74,7 @@ const LibFilter = () => {
                 <div
                   key={key}
                   onClick={() => handleFilterChange(value)}
-                  className={`text-base leading-5 ${curFilter === key ? "text-ivory" : "text-tarnished"}`}>
+                  className={`text-xs leading-4 ${curFilter === key ? "text-ivory" : "text-tarnished"}`}>
                   {value}
                 </div>
               )

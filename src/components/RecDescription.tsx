@@ -3,7 +3,7 @@ import sprite from "../assets/sprite.svg";
 
 const RecDescription = () => {
   return (
-    <div className="bg-ebony rounded-xl p-5">
+    <div className="bg-ebony md:w-78 rounded-xl w-full p-5">
       <h3 className="mb-5 text-lg leading-none font-bold tracking-tight md:mb-10 md:text-xl">
         Start your workout
       </h3>
