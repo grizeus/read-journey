@@ -45,7 +45,7 @@ const LibraryMain = () => {
 
   return (
     <>
-      <div className="bg-charcoal-black w-full min-w-84 rounded-4xl px-5 py-10">
+      <div className="bg-charcoal-black mx-auto w-84 md:w-full min-w-84 rounded-4xl px-5 py-10">
         <div className="mb-3.5 flex items-center justify-between">
           <h1 className="text-xl leading-none font-bold tracking-tight md:text-[28px] md:leading-8 md:tracking-wide">
             My library

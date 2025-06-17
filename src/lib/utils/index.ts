@@ -1,7 +1,5 @@
 import type { Book, Progress, TimeLeft } from "../../types";
 
-
-
 export const getRandomBooks = (books: Book[], count: number) => {
   const shuffled = [...books].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
